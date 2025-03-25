@@ -4,13 +4,16 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	regexp "github.com/dlclark/regexp2"
+	"github.com/gin-gonic/gin"
+	"github.com/spigcoder/LittleBook/webook/interanal/domain"
+	"github.com/spigcoder/LittleBook/webook/interanal/service"
 )
 
 type UserHandler struct {
 	emailExp *regexp.Regexp
-	passExp *regexp.Regexp
+	passExp  *regexp.Regexp
+	svc      service.UserService
 }
 
 func NewUserHandler() *UserHandler {
@@ -22,10 +25,10 @@ func NewUserHandler() *UserHandler {
 	//避免每次都要编译
 	passRegex := regexp.MustCompile(PasswordRegexp, regexp.None)
 	emailRegx := regexp.MustCompile(EmailRegexp, regexp.None)
-	
+
 	return &UserHandler{
 		emailExp: emailRegx,
-		passExp: passRegex,
+		passExp:  passRegex,
 	}
 }
 
@@ -78,6 +81,14 @@ func (u *UserHandler) Signup(c *gin.Context) {
 	if !ok {
 		c.String(http.StatusBadRequest, "密码必须同时包含字母大小写, 数字和特殊符号, 且不少于8位")
 		return
+	}
+
+	//调用服务接口
+	if err := u.svc.SignUp(c, domain.User{
+		Email:    suq.Email,
+		Password: suq.Password,
+	}); err != nil {
+		c.String(http.StatusInternalServerError, "服务器问题")
 	}
 	c.String(200, "注册成功")
 }
