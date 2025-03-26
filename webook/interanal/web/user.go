@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	regexp "github.com/dlclark/regexp2"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/spigcoder/LittleBook/webook/interanal/domain"
 	"github.com/spigcoder/LittleBook/webook/interanal/service"
@@ -13,14 +14,14 @@ import (
 type UserHandler struct {
 	emailExp *regexp.Regexp
 	passExp  *regexp.Regexp
-	svc      service.UserService
+	svc      *service.UserService
 }
 
-func NewUserHandler() *UserHandler {
+func NewUserHandler(svc *service.UserService) *UserHandler {
 	const (
 		EmailRegexp = "^\\w+(-+.\\w+)*@\\w+(-.\\w+)*.\\w+(-.\\w+)*$"
 		//8位以上的必须同时包含字母大小写，数字和特殊符号
-		PasswordRegexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%%^&*()_+{}\\[\\]:;'\",.<>/?\\|~-]).{8,}$"
+		PasswordRegexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%%^&*()_+{}\\[\\]:;'\",.<>/?\\|~-]).{8,72}$"
 	)
 	//避免每次都要编译
 	passRegex := regexp.MustCompile(PasswordRegexp, regexp.None)
@@ -29,6 +30,7 @@ func NewUserHandler() *UserHandler {
 	return &UserHandler{
 		emailExp: emailRegx,
 		passExp:  passRegex,
+		svc:      svc,
 	}
 }
 
@@ -84,17 +86,47 @@ func (u *UserHandler) Signup(c *gin.Context) {
 	}
 
 	//调用服务接口
-	if err := u.svc.SignUp(c, domain.User{
+	err = u.svc.SignUp(c, domain.User{
 		Email:    suq.Email,
-		Password: suq.Password,
-	}); err != nil {
+		Password: suq.Password})
+	if err == service.ErrDuplicateEmail {
+		c.String(http.StatusBadRequest, "邮箱冲突")
+		return
+	}
+	if err != nil {
 		c.String(http.StatusInternalServerError, "服务器问题")
+		return
 	}
 	c.String(200, "注册成功")
 }
 
 func (u *UserHandler) Login(c *gin.Context) {
+	type LoginReq struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
 
+	var req LoginReq
+	if err := c.Bind(&req); err != nil {
+		return
+	}
+	err := u.svc.Login(c, domain.User{
+		Email:    req.Email,
+		Password: req.Password,
+	})
+	if err == service.ErrInvalidUserOrPassword {
+		c.String(http.StatusBadRequest, "用户名或密码错误")
+		return
+	}
+	if err != nil {
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	//设置session
+	see := sessions.Default(c)
+	see.Set("userEmail", req.Email)
+	see.Save()
+	c.String(200, "登录成功")
 }
 
 func (u *UserHandler) Edit(c *gin.Context) {
