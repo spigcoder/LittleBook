@@ -43,15 +43,14 @@ func initWebServer() *gin.Engine {
 			return strings.Contains(origin, "your_company.com")
 		},
 		MaxAge: 12 * time.Hour,
-	}))	
+	}))
 	store := cookie.NewStore([]byte("secret"))
-  	server.Use(sessions.Sessions("webook", store))
-	server.Use(middleware.NewLoginMiddlewareBuilder().
-	IgnorePaths("/users/signup").IgnorePaths("/users/login").Build())
+	server.Use(sessions.Sessions("webook", store))
+	server.Use(middleware.NewLoginMiddlewareBuilder().IgnorePaths("/users/signup").IgnorePaths("/users/login").Build())
 	return server
 }
 
-func initUser(db *gorm.DB) *web.UserHandler  {
+func initUser(db *gorm.DB) *web.UserHandler {
 	userDao := dao.NewUserDao(db)
 	userRepo := repository.NewUserRepository(userDao)
 	userSvc := service.NewUserService(userRepo)

@@ -25,11 +25,11 @@ func (l *LoginMiddlewareBuilder) Build() gin.HandlerFunc {
 		for _, path := range l.path {
 			if path == c.Request.URL.Path {
 				return
-			}	
+			}
 		}
 		see := sessions.Default(c)
-		email := see.Get("userEmail")
-		if email == nil {
+		userId := see.Get("userId")
+		if userId == nil {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}

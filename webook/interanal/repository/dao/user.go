@@ -3,6 +3,7 @@ package dao
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
@@ -22,6 +23,9 @@ type User struct {
 	Id       int64  `gorm:"primaryKey,autoIncrement"`
 	Email    string `gorm:"unique"`
 	Password string
+	UserName string
+	Birthday string
+	Intro    string
 
 	CreateTime int64
 	UpdateTime int64
@@ -45,11 +49,17 @@ func (dao *UserDao) Insert(ctx context.Context, u User) error {
 	u.UpdateTime = now
 
 	err := dao.db.WithContext(ctx).Create(&u).Error
-	//跟底层强耦合，因为这里假设底层使用了MySQLj'j
+	//跟底层强耦合，因为这里假设底层使用了MySQLj
 	if mysqlErr, ok := err.(*mysql.MySQLError); ok {
 		if mysqlErr.Number == 1062 { // Duplicate entry
 			return ErrDuplicateEmail
 		}
 	}
 	return err
+}
+
+func (dao *UserDao) Edit(ctx context.Context, u User) error {
+	u.UpdateTime = time.Now().UnixMilli()
+	fmt.Println(u)
+	return dao.db.WithContext(ctx).Model(&u).Updates(u).Error
 }

@@ -29,7 +29,9 @@ func (repo *UserRepository) FindByEmail(c context.Context, email string) (domain
 	}
 
 	return domain.User{
+		Id:       u.Id,
 		Email:    u.Email,
+		UserName: u.UserName,
 		Password: u.Password,
 	}, nil
 }
@@ -40,6 +42,16 @@ func (repo *UserRepository) Create(c context.Context, u domain.User) error {
 		Password: u.Password,
 	})
 
+	return err
+}
+
+func (repo *UserRepository) Edit(c context.Context, u domain.User) error {
+	err := repo.dao.Edit(c, dao.User{
+		Birthday: u.Birthday,
+		Intro:    u.Intro,
+		UserName: u.UserName,
+		Id:       u.Id,
+	})
 	return err
 }
 
