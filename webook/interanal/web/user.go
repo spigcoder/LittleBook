@@ -128,7 +128,7 @@ func (handler *UserHandler) Login(c *gin.Context) {
 	see := sessions.Default(c)
 	see.Set("userId", u.Id)
 	see.Options(sessions.Options{
-		MaxAge: 2 * 24 * 60 * 60,	
+		MaxAge: 60*30,	
 	})
 	see.Save()
 	c.String(200, "登录成功")

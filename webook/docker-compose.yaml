@@ -10,3 +10,9 @@ services:
       - "13316:3306"
     volumes:
       - ./script/mysql/:/docker-entrypoint-initdb.d/
+  redis:
+    image:  'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
