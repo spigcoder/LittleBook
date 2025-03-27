@@ -5,11 +5,16 @@ import (
 	"net/http"
 	"unicode/utf8"
 
+	jwt "github.com/golang-jwt/jwt/v5"
 	regexp "github.com/dlclark/regexp2"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/spigcoder/LittleBook/webook/interanal/domain"
 	"github.com/spigcoder/LittleBook/webook/interanal/service"
+)
+
+var (
+	ScretKey = []byte("ZD3oYULPnlBo2wqebduhFQjmrZdaFGaLzayCa8t8HWwxWKbRcGzaNLKkZ31ldeaM")	
 )
 
 type UserHandler struct {
@@ -39,7 +44,8 @@ func (handler *UserHandler) RegisterRoutes(server *gin.Engine) {
 	s := server.Group("/users")
 	s.GET("/profile", handler.Profile)
 	s.POST("/signup", handler.Signup)
-	s.POST("/login", handler.Login)
+	// s.POST("/login", handler.Login)
+	s.POST("/login", handler.LoginJWT)
 	s.POST("/edit", handler.Edit)
 }
 
@@ -100,6 +106,40 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 	}
 	c.String(200, "注册成功")
 }
+func (handler *UserHandler) LoginJWT(c *gin.Context) {
+	type LoginReq struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+		Id       int64  `json:"id"`
+	}
+
+	var req LoginReq
+	if err := c.Bind(&req); err != nil {
+		return
+	}
+	u, err := handler.svc.Login(c, domain.User{
+		Email:    req.Email,
+		Password: req.Password,
+	})
+	if err == service.ErrInvalidUserOrPassword {
+		c.String(http.StatusBadRequest, "用户名或密码错误")
+		return
+	}
+	if err != nil {
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	//设置JWT
+	token := jwt.New(jwt.SigningMethodHS512) 
+	tokenStr, err := token.SignedString([]byte(ScretKey))
+	if err!= nil {
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	c.Header("x-jwt-token", tokenStr)
+	fmt.Println(u)
+	c.String(200, "登录成功")
+}
 
 func (handler *UserHandler) Login(c *gin.Context) {
 	type LoginReq struct {
@@ -128,7 +168,7 @@ func (handler *UserHandler) Login(c *gin.Context) {
 	see := sessions.Default(c)
 	see.Set("userId", u.Id)
 	see.Options(sessions.Options{
-		MaxAge: 60*30,	
+		MaxAge: 60 * 30,
 	})
 	see.Save()
 	c.String(200, "登录成功")

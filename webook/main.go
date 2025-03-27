@@ -34,6 +34,8 @@ func initWebServer() *gin.Engine {
 		//如果没有这个，那就是默认所有的都可以
 		// AllowMethods:     []string{"PUT", "PATCH"},
 		AllowHeaders: []string{"Content-Type", "Authorization"},
+		//只有加上这个，前端才能拿到这个header
+		ExposeHeaders: []string{"x-jwt-token"},
 		//允许带cookie之类的东西
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
@@ -49,7 +51,7 @@ func initWebServer() *gin.Engine {
 		panic(err)
 	}
 	server.Use(sessions.Sessions("webook", store))
-	server.Use(middleware.NewLoginMiddlewareBuilder().IgnorePaths("/users/signup").IgnorePaths("/users/login").Build())
+	server.Use(middleware.NewLoginJWTMiddlewareBuilder().IgnorePaths("/users/signup").IgnorePaths("/users/login").Build())
 	return server
 }
 
