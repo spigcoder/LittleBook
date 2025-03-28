@@ -26,6 +26,7 @@ type UserHandler struct {
 
 type UserClaims struct {
 	Uid int64 `json:"uid"`
+	UserAgent string
 	jwt.RegisteredClaims
 }
 
@@ -138,6 +139,7 @@ func (handler *UserHandler) LoginJWT(c *gin.Context) {
 	//设置JWT
 	userClaims := UserClaims{
 		Uid: u.Id,
+		UserAgent: c.Request.UserAgent(),
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 2)),
 		},

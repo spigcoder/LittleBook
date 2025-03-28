@@ -5,14 +5,14 @@ import (
 	"time"
 
 	"github.com/gin-contrib/cors"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
 	"github.com/spigcoder/LittleBook/webook/interanal/repository"
 	"github.com/spigcoder/LittleBook/webook/interanal/repository/dao"
 	"github.com/spigcoder/LittleBook/webook/interanal/service"
 	"github.com/spigcoder/LittleBook/webook/interanal/web"
 	"github.com/spigcoder/LittleBook/webook/interanal/web/middleware"
+	"github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/ratelimit"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -46,11 +46,16 @@ func initWebServer() *gin.Engine {
 		},
 		MaxAge: 12 * time.Hour,
 	}))
-	store, err := redis.NewStore(16, "tcp", "localhost:6379", "", []byte("oez06bfpafdk77ocfcpc0tyrc5izmr9r"), []byte("tisjdqf9omlwdztf6codcmeslh352bpv"))
-	if err != nil {
-		panic(err)
-	}
-	server.Use(sessions.Sessions("webook", store))
+	redisClient := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+	server.Use(ratelimit.NewBuilder(redisClient, time.Second, 100).Build())
+	//启用session
+	// store, err := redis.NewStore(16, "tcp", "localhost:6379", "", []byte("oez06bfpafdk77ocfcpc0tyrc5izmr9r"), []byte("tisjdqf9omlwdztf6codcmeslh352bpv"))
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// server.Use(sessions.Sessions("webook", store))
 	server.Use(middleware.NewLoginJWTMiddlewareBuilder().IgnorePaths("/users/signup").IgnorePaths("/users/login").Build())
 	return server
 }
