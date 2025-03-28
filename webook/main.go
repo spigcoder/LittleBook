@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
 	"strings"
 	"time"
 
@@ -18,11 +20,16 @@ import (
 )
 
 func main() {
-	db := initDB()
-	user := initUser(db)
+	// db := initDB()
+	// user := initUser(db)
 
-	server := initWebServer()
-	user.RegisterRoutes(server)
+	// server := initWebServer()
+	// user.RegisterRoutes(server)
+	server := gin.Default()
+	fmt.Println("hello, world")
+	server.GET("/hello", func(ctx *gin.Context) {
+		ctx.String(http.StatusOK, "hello, world")
+	})
 	server.Run(":8080")
 }
 
