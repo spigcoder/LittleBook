@@ -3,7 +3,6 @@ package dao
 import (
 	"context"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
@@ -60,6 +59,5 @@ func (dao *UserDao) Insert(ctx context.Context, u User) error {
 
 func (dao *UserDao) Edit(ctx context.Context, u User) error {
 	u.UpdateTime = time.Now().UnixMilli()
-	fmt.Println(u)
 	return dao.db.WithContext(ctx).Model(&u).Updates(u).Error
 }

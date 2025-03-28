@@ -3,24 +3,30 @@ package web
 import (
 	"fmt"
 	"net/http"
+	"time"
 	"unicode/utf8"
 
-	jwt "github.com/golang-jwt/jwt/v5"
 	regexp "github.com/dlclark/regexp2"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	jwt "github.com/golang-jwt/jwt/v5"
 	"github.com/spigcoder/LittleBook/webook/interanal/domain"
 	"github.com/spigcoder/LittleBook/webook/interanal/service"
 )
 
 var (
-	ScretKey = []byte("ZD3oYULPnlBo2wqebduhFQjmrZdaFGaLzayCa8t8HWwxWKbRcGzaNLKkZ31ldeaM")	
+	ScretKey = []byte("ZD3oYULPnlBo2wqebduhFQjmrZdaFGaLzayCa8t8HWwxWKbRcGzaNLKkZ31ldeaM")
 )
 
 type UserHandler struct {
 	emailExp *regexp.Regexp
 	passExp  *regexp.Regexp
 	svc      *service.UserService
+}
+
+type UserClaims struct {
+	Uid int64 `json:"uid"`
+	jwt.RegisteredClaims
 }
 
 func NewUserHandler(svc *service.UserService) *UserHandler {
@@ -130,14 +136,19 @@ func (handler *UserHandler) LoginJWT(c *gin.Context) {
 		return
 	}
 	//设置JWT
-	token := jwt.New(jwt.SigningMethodHS512) 
+	userClaims := UserClaims{
+		Uid: u.Id,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 2)),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, userClaims)
 	tokenStr, err := token.SignedString([]byte(ScretKey))
-	if err!= nil {
+	if err != nil {
 		c.String(http.StatusInternalServerError, "服务器问题")
 		return
 	}
 	c.Header("x-jwt-token", tokenStr)
-	fmt.Println(u)
 	c.String(200, "登录成功")
 }
 
@@ -193,13 +204,22 @@ func (handler *UserHandler) Edit(c *gin.Context) {
 		c.String(http.StatusBadRequest, "简介长度不能超过256")
 		return
 	}
-	see := sessions.Default(c)
-	id := see.Get("userId")
+	userClaim, ok := c.Get("claims")
+	if !ok {
+		c.String(http.StatusInternalServerError, "internal server error")
+		return
+	}
+	claims, ok := userClaim.(*UserClaims)
+	if !ok {
+		c.String(http.StatusInternalServerError, "internal server error")
+		return
+	}
+	id := claims.Uid
 	err := handler.svc.Edit(c, domain.User{
 		UserName: req.UserName,
 		Birthday: req.Birthday,
 		Intro:    req.Intro,
-		Id:       id.(int64),
+		Id:       id,
 	})
 
 	if err != nil {

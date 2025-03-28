@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	jwt "github.com/golang-jwt/jwt/v5"
@@ -40,12 +41,25 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 		// }
 		// tokenStr := seg[1]
 		tokenStr := tokenHeader
-		token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		userClaims := &web.UserClaims{}
+		token, err := jwt.ParseWithClaims(tokenStr, userClaims, func(token *jwt.Token) (interface{}, error) {
 			return web.ScretKey, nil
 		})
-		if err != nil || token == nil || !token.Valid {
+		if err != nil || token == nil || !token.Valid || userClaims.Uid == 0 {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
+		//刷新jwt
+		if userClaims.ExpiresAt.Sub(time.Now()) < time.Minute * 30 {
+			userClaims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(time.Hour))
+			token = jwt.NewWithClaims(jwt.SigningMethodHS512, userClaims)
+			tokenStr, err = token.SignedString(web.ScretKey)
+			if err != nil {
+				c.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+			c.Header("x-jwt-token", tokenStr)
+		}
+		c.Set("claims", userClaims)
 	}
 }
