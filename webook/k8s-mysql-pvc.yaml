@@ -1,0 +1,13 @@
+# pvc - persistent volume claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+#  这个是指mysql要用的，那么k8s要用什么 -- 
+  name: webook-mysql-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  resources:
+    requests:
+      storage: 1Gi

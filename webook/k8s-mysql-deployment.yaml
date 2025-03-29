@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webook-mysql
+  labels:
+    app: webook-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webook-mysql
+  template:
+    metadata:
+      name: webook-mysql
+      labels:
+        app: webook-mysql
+    spec:
+      containers:
+      - name: webook-mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root"
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        # 这个表示我pod种有那么多的volume，我要使用哪一个
+        - name: mysql-sotrage
+          mountPath: /var/lib/mysql
+        ports:
+        - containerPort: 3306
+      restartPolicy: Always
+      volumes:
+      #这个表示我pod种含有的volume
+      - name: mysql-sotrage
+        persistentVolumeClaim:
+          claimName: webook-mysql-claim
