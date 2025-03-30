@@ -53,10 +53,10 @@ func initWebServer() *gin.Engine {
 		},
 		MaxAge: 12 * time.Hour,
 	}))
-	redisClient := redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
-	})
-	server.Use(ratelimit.NewBuilder(redisClient, time.Second, 100).Build())
+	// redisClient := redis.NewClient(&redis.Options{
+	// 	Addr: "localhost:6379",
+	// })
+	// server.Use(ratelimit.NewBuilder(redisClient, time.Second, 100).Build())
 	//启用session
 	// store, err := redis.NewStore(16, "tcp", "localhost:6379", "", []byte("oez06bfpafdk77ocfcpc0tyrc5izmr9r"), []byte("tisjdqf9omlwdztf6codcmeslh352bpv"))
 	// if err != nil {
