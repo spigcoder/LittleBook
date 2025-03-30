@@ -44,7 +44,7 @@ func (cache *UserCache) Set(ctx context.Context, u domain.User) error {
 		return err
 	}
 	key := cache.getKey(u.Id)
-	return cache.client.Set(ctx, key, val, cache.expireTime).Error()
+	return cache.client.Set(ctx, key, val, cache.expireTime).Err()
 }
 
 func (cache *UserCache) getKey(uid int64) string {
