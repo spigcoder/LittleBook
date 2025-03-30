@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/spigcoder/LittleBook/webook/interanal/domain"
-	"github.com/spigcoder/LittleBook/webook/interanal/repository"
+	"github.com/spigcoder/LittleBook/webook/internal/domain"
+	"github.com/spigcoder/LittleBook/webook/internal/repository"
 	"golang.org/x/crypto/bcrypt"
 )
 

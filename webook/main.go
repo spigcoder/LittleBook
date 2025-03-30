@@ -1,35 +1,28 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	"strings"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
-	"github.com/spigcoder/LittleBook/webook/interanal/repository"
-	"github.com/spigcoder/LittleBook/webook/interanal/repository/dao"
-	"github.com/spigcoder/LittleBook/webook/interanal/service"
-	"github.com/spigcoder/LittleBook/webook/interanal/web"
-	"github.com/spigcoder/LittleBook/webook/interanal/web/middleware"
+	"github.com/spigcoder/LittleBook/webook/internal/repository"
+	"github.com/spigcoder/LittleBook/webook/internal/repository/dao"
+	"github.com/spigcoder/LittleBook/webook/internal/service"
+	"github.com/spigcoder/LittleBook/webook/internal/web"
+	"github.com/spigcoder/LittleBook/webook/internal/web/middleware"
 	"github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/ratelimit"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func main() {
-	// db := initDB()
-	// user := initUser(db)
+	db := initDB()
+	user := initUser(db)
 
-	// server := initWebServer()
-	// user.RegisterRoutes(server)
-	server := gin.Default()
-	fmt.Println("hello, world")
-	server.GET("/hello", func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "hello, world")
-	})
+	server := initWebServer()
+	user.RegisterRoutes(server)
 	server.Run(":8080")
 }
 
@@ -53,10 +46,10 @@ func initWebServer() *gin.Engine {
 		},
 		MaxAge: 12 * time.Hour,
 	}))
-	// redisClient := redis.NewClient(&redis.Options{
-	// 	Addr: "localhost:6379",
-	// })
-	// server.Use(ratelimit.NewBuilder(redisClient, time.Second, 100).Build())
+	redisClient := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+	server.Use(ratelimit.NewBuilder(redisClient, time.Second, 100).Build())
 	//启用session
 	// store, err := redis.NewStore(16, "tcp", "localhost:6379", "", []byte("oez06bfpafdk77ocfcpc0tyrc5izmr9r"), []byte("tisjdqf9omlwdztf6codcmeslh352bpv"))
 	// if err != nil {

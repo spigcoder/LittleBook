@@ -10,8 +10,8 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	jwt "github.com/golang-jwt/jwt/v5"
-	"github.com/spigcoder/LittleBook/webook/interanal/domain"
-	"github.com/spigcoder/LittleBook/webook/interanal/service"
+	"github.com/spigcoder/LittleBook/webook/internal/domain"
+	"github.com/spigcoder/LittleBook/webook/internal/service"
 )
 
 var (
@@ -26,6 +26,7 @@ type UserHandler struct {
 
 type UserClaims struct {
 	Uid int64 `json:"uid"`
+	// UserAgent 是客户端的信息，用于校验
 	UserAgent string
 	jwt.RegisteredClaims
 }
@@ -78,6 +79,7 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 		c.String(http.StatusBadRequest, "两次密码不一致")
 		return
 	}
+	//判断是否符合邮箱格式
 	ok, err := handler.emailExp.MatchString(suq.Email)
 	if err != nil {
 		fmt.Println(err)
@@ -88,6 +90,7 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 		c.String(http.StatusBadRequest, "邮箱格式错误")
 		return
 	}
+	//判断是否符合密码格式
 	ok, err = handler.passExp.MatchString(suq.Password)
 	if err != nil {
 		fmt.Println(err)
@@ -113,6 +116,7 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 	}
 	c.String(200, "注册成功")
 }
+
 func (handler *UserHandler) LoginJWT(c *gin.Context) {
 	type LoginReq struct {
 		Email    string `json:"email"`

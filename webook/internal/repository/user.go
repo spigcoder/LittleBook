@@ -3,9 +3,9 @@ package repository
 import (
 	"context"
 
-	"github.com/spigcoder/LittleBook/webook/interanal/domain"
-	"github.com/spigcoder/LittleBook/webook/interanal/repository/cache"
-	"github.com/spigcoder/LittleBook/webook/interanal/repository/dao"
+	"github.com/spigcoder/LittleBook/webook/internal/domain"
+	"github.com/spigcoder/LittleBook/webook/internal/repository/cache"
+	"github.com/spigcoder/LittleBook/webook/internal/repository/dao"
 )
 
 var (
@@ -49,6 +49,7 @@ func (repo *UserRepository) Create(c context.Context, u domain.User) error {
 }
 
 func (repo *UserRepository) Edit(c context.Context, u domain.User) error {
+	//这里涉及缓存一致性问题，可以考虑先删除缓存，然后再更新数据库
 	err := repo.dao.Edit(c, dao.User{
 		Birthday: u.Birthday,
 		Intro:    u.Intro,

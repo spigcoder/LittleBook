@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	jwt "github.com/golang-jwt/jwt/v5"
-	"github.com/spigcoder/LittleBook/webook/interanal/web"
+	"github.com/spigcoder/LittleBook/webook/internal/web"
 )
 
 type LoginJWTMiddlewareBuilder struct {
@@ -49,6 +49,7 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
+		// 检查userAgent是否一致, 防止token劫持
 		if userClaims.UserAgent != c.Request.UserAgent() {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return

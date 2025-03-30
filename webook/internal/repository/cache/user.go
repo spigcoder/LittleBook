@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/spigcoder/LittleBook/webook/interanal/domain"
+	"github.com/spigcoder/LittleBook/webook/internal/domain"
 )
 
 var KeyNotExist = redis.Nil
