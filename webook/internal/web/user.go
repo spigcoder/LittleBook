@@ -70,7 +70,6 @@ func (handler *UserHandler) LoginSMS(c *gin.Context) {
 	if err := c.Bind(&req); err != nil {
 		return
 	}
-	//校验手机号
 	//校验验证码
 	ok, err := handler.codeSvc.Verify(c, biz, req.Phone, req.Code)
 	if err == service.ErrCodeVerifyTooManyTimes {
@@ -112,7 +111,6 @@ func (handler *UserHandler) SendCode(c *gin.Context) {
 	if err := c.Bind(&req); err != nil {
 		return
 	}
-	//校验手机号
 	err := handler.codeSvc.Send(c, biz, req.Phone)
 	if err == nil {
 		c.String(http.StatusOK, "发送成功")
