@@ -8,8 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
 	"github.com/spigcoder/LittleBook/webook/internal/repository"
+	"github.com/spigcoder/LittleBook/webook/internal/repository/cache"
 	"github.com/spigcoder/LittleBook/webook/internal/repository/dao"
 	"github.com/spigcoder/LittleBook/webook/internal/service"
+	"github.com/spigcoder/LittleBook/webook/internal/service/sms/mem"
 	"github.com/spigcoder/LittleBook/webook/internal/web"
 	"github.com/spigcoder/LittleBook/webook/internal/web/middleware"
 	"github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/ratelimit"
@@ -56,7 +58,7 @@ func initWebServer() *gin.Engine {
 	// 	panic(err)
 	// }
 	// server.Use(sessions.Sessions("webook", store))
-	server.Use(middleware.NewLoginJWTMiddlewareBuilder().IgnorePaths("/users/signup").IgnorePaths("/users/login").Build())
+	server.Use(middleware.NewLoginJWTMiddlewareBuilder().IgnorePaths("/users/signup").IgnorePaths("/users/login").IgnorePaths("/users/code/send").IgnorePaths("/users/login_sms").Build())
 	return server
 }
 
@@ -64,7 +66,14 @@ func initUser(db *gorm.DB) *web.UserHandler {
 	userDao := dao.NewUserDao(db)
 	userRepo := repository.NewUserRepository(userDao)
 	userSvc := service.NewUserService(userRepo)
-	user := web.NewUserHandler(userSvc)
+	codeCache := cache.NewCodeCache(redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	}))
+	codeRepo := repository.NewCodeRepository(codeCache)
+	smsService := &mem.MemService{}
+	codeSvc := service.NewCodeService(codeRepo, smsService)
+
+	user := web.NewUserHandler(userSvc, codeSvc)
 	return user
 }
 

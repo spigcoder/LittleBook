@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/spigcoder/LittleBook/webook/internal/domain"
 	"github.com/spigcoder/LittleBook/webook/internal/repository/cache"
@@ -24,25 +25,25 @@ func NewUserRepository(dao *dao.UserDao) *UserRepository {
 	}
 }
 
+func (repo *UserRepository) FindByPhone(c context.Context, phone string) (domain.User, error) {
+	u, err := repo.dao.FindByPhone(c, phone)
+	if err!= nil {
+		return domain.User{}, err
+	}	
+	return repo.TransformDaoToDomain(u), nil
+}
+
 func (repo *UserRepository) FindByEmail(c context.Context, email string) (domain.User, error) {
 	u, err := repo.dao.FindByEmail(c, email)
 	if err != nil {
 		return domain.User{}, err
 	}
 
-	return domain.User{
-		Id:       u.Id,
-		Email:    u.Email,
-		UserName: u.UserName,
-		Password: u.Password,
-	}, nil
+	return repo.TransformDaoToDomain(u), nil 
 }
 
 func (repo *UserRepository) Create(c context.Context, u domain.User) error {
-	err := repo.dao.Insert(c, dao.User{
-		Email:    u.Email,
-		Password: u.Password,
-	})
+	err := repo.dao.Insert(c, repo.TranformDomainToDao(u))
 	//这里可以做缓存，这里是注册，所以缓存的key可以使用邮箱，这样再次登录可以直接从缓存中获取用户信息
 	//但是登录没必要做缓存
 	return err
@@ -69,13 +70,7 @@ func (repo *UserRepository) GetUserById(c context.Context, id int64) (user domai
 		if err != nil {
 			return domain.User{}, err
 		}
-		user = domain.User{
-			Id:       daoUser.Id,
-			Email:    daoUser.Email,
-			Birthday: daoUser.Birthday,
-			UserName: daoUser.UserName,
-		}
-		// 将用户信息存入缓存
+		user := repo.TransformDaoToDomain(daoUser)
 		err = repo.cache.Set(c, user)
 		if err!= nil {
 			//TODO 这里要记录日志
@@ -91,4 +86,35 @@ func (repo *UserRepository) GetUserById(c context.Context, id int64) (user domai
 		return domain.User{}, err
 	}
 	return user, nil
+}
+
+
+func (repo *UserRepository) TranformDomainToDao(user domain.User) dao.User {
+	return dao.User{
+		Id:       user.Id,
+		Email:    sql.NullString{
+			String: user.Email,
+			Valid:  user.Email != "",
+		},
+		Phone: sql.NullString{
+			String: user.Phone,
+			Valid:  user.Phone != "",
+		},
+		Password: user.Password,
+		Birthday: user.Birthday,
+		UserName: user.UserName,
+		Intro:    user.Intro,
+	}
+}
+
+func (repo *UserRepository) TransformDaoToDomain(daoUser dao.User) domain.User {
+	return domain.User{
+		Id:       daoUser.Id,
+		Email:    daoUser.Email.String,
+		Phone:    daoUser.Phone.String,
+		Password: daoUser.Password,
+		Birthday: daoUser.Birthday,
+		UserName: daoUser.UserName,
+		Intro:    daoUser.Intro,
+	}
 }

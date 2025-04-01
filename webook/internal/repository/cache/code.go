@@ -11,7 +11,7 @@ import (
 
 var (
 	ErrCodeSendTooMany        = errors.New("发送太频繁")
-	ErrCodeVerifyTooManyTimes = errors.New("验证码验证次数过多")
+	ErrCodeVerifyTooManyTimes = errors.New("验证码错误或者失败太多次")
 	ErrUnKnownForCode         = errors.New("未知错误")
 )
 

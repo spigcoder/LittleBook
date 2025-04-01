@@ -9,7 +9,12 @@ import (
 	"github.com/spigcoder/LittleBook/webook/internal/service/sms"
 )
 
-var tmpId string = ""
+ 
+var (
+	ErrCodeSendTooMany = repository.ErrCodeSendTooMany
+	ErrCodeVerifyTooManyTimes = repository.ErrCodeVerifyTooManyTimes
+	tmpId string = ""
+)
 
 type CodeService struct {
 	repo *repository.CodeRepository
@@ -25,7 +30,7 @@ func NewCodeService(repo *repository.CodeRepository, smsSvc sms.Service) *CodeSe
 
 func (svc *CodeService) randomCode() string {
 	key := rand.IntN(1000000)
-	return fmt.Sprintf("%6d", key)
+	return fmt.Sprintf("%06d", key)
 }
 
 func (csv *CodeService) Send(ctx context.Context, biz string, phone string) error {

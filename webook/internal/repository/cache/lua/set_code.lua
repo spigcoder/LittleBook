@@ -4,11 +4,11 @@ local key = KEYS[1]
 local cntKey = key..":cnt"
 local val = ARGV[1]
 -- 验证码的有效时间是10分钟
-local ttl = tonumber(redis.Call("ttl", key))
+local ttl = tonumber(redis.call("ttl", key))
 -- 没有过期时间，可能是其他人误操作
 if ttl == -1 then
     return -2
-else if ttl == -2 or ttl < 540 then
+elseif ttl == -2 or ttl < 540 then
     -- 没有发送过验证码，直接设置
     redis.call("set", key, val)
     redis.call("expire", key, 600)

@@ -22,6 +22,25 @@ func NewUserService(repo *repository.UserRepository) *UserService {
 	return &UserService{repo: repo}
 }
 
+func (s *UserService) FindOrCreate(ctx context.Context, phone string) (domain.User, error) {
+	u, err := s.repo.FindByPhone(ctx, phone)
+	if err == repository.ErrUserNotFound {
+		// 创建一个用户
+		user := domain.User{
+			Phone: phone,
+		}
+		err = s.repo.Create(ctx, user)
+		if err != nil {
+			return domain.User{}, err
+		}
+		return user, nil
+	}
+	if err != nil {
+		return domain.User{}, err
+	}
+	return u, err
+}
+
 func (s *UserService) SignUp(ctx context.Context, user domain.User) error {
 	HashPass, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {

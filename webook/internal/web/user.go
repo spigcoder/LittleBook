@@ -16,12 +16,14 @@ import (
 
 var (
 	ScretKey = []byte("ZD3oYULPnlBo2wqebduhFQjmrZdaFGaLzayCa8t8HWwxWKbRcGzaNLKkZ31ldeaM")
+	biz      = "login"
 )
 
 type UserHandler struct {
 	emailExp *regexp.Regexp
 	passExp  *regexp.Regexp
 	svc      *service.UserService
+	codeSvc  *service.CodeService
 }
 
 type UserClaims struct {
@@ -31,7 +33,7 @@ type UserClaims struct {
 	jwt.RegisteredClaims
 }
 
-func NewUserHandler(svc *service.UserService) *UserHandler {
+func NewUserHandler(svc *service.UserService, codeSvc *service.CodeService) *UserHandler {
 	const (
 		EmailRegexp = "^\\w+(-+.\\w+)*@\\w+(-.\\w+)*.\\w+(-.\\w+)*$"
 		//8位以上的必须同时包含字母大小写，数字和特殊符号
@@ -45,20 +47,84 @@ func NewUserHandler(svc *service.UserService) *UserHandler {
 		emailExp: emailRegx,
 		passExp:  passRegex,
 		svc:      svc,
+		codeSvc:  codeSvc,
 	}
 }
 
 func (handler *UserHandler) RegisterRoutes(server *gin.Engine) {
 	s := server.Group("/users")
-	s.GET("/profile", handler.Profile)
 	s.POST("/signup", handler.Signup)
 	// s.POST("/login", handler.Login)
 	s.POST("/login", handler.LoginJWT)
+	s.POST("/code/send", handler.SendCode)
+	s.POST("/login_sms", handler.LoginSMS)
 	s.POST("/edit", handler.Edit)
 }
 
-func (handler *UserHandler) Profile(c *gin.Context) {
+func (handler *UserHandler) LoginSMS(c *gin.Context) {
+	type LoginReq struct {
+		Phone string `json:"phone"`
+		Code  string `json:"code"`
+	}
+	var req LoginReq
+	if err := c.Bind(&req); err != nil {
+		return
+	}
+	//校验手机号
+	//校验验证码
+	ok, err := handler.codeSvc.Verify(c, biz, req.Phone, req.Code)
+	if err == service.ErrCodeVerifyTooManyTimes {
+		c.String(http.StatusInternalServerError, "验证码错误")
+		return
+	}
+	if err != nil {
+		fmt.Println(err)
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	if !ok {
+		fmt.Println(err)
+		c.String(http.StatusBadRequest, "验证码错误")
+		return
+	}
+	//验证通过
+	u, err := handler.svc.FindOrCreate(c, req.Phone)
+	if err != nil {
+		fmt.Println(err)
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	//设置JWT
+	err = handler.SetJWT(c, u.Id)
+	if err != nil {
+		fmt.Println(err)
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	c.String(200, "登录成功")
+}
 
+func (handler *UserHandler) SendCode(c *gin.Context) {
+	type SendCodeReq struct {
+		Phone string `json:"phone"`
+	}
+	var req SendCodeReq
+	if err := c.Bind(&req); err != nil {
+		return
+	}
+	//校验手机号
+	err := handler.codeSvc.Send(c, biz, req.Phone)
+	if err == nil {
+		c.String(http.StatusOK, "发送成功")
+		return
+	}
+	if err == service.ErrCodeSendTooMany {
+		fmt.Println(err)
+		c.String(http.StatusTooManyRequests, "发送太频繁，请稍后再试")
+		return
+	}
+	fmt.Println(err)
+	c.String(http.StatusInternalServerError, "服务器问题")
 }
 
 func (handler *UserHandler) Signup(c *gin.Context) {
@@ -82,7 +148,6 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 	//判断是否符合邮箱格式
 	ok, err := handler.emailExp.MatchString(suq.Email)
 	if err != nil {
-		fmt.Println(err)
 		c.String(http.StatusInternalServerError, "服务器问题")
 		return
 	}
@@ -93,7 +158,6 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 	//判断是否符合密码格式
 	ok, err = handler.passExp.MatchString(suq.Password)
 	if err != nil {
-		fmt.Println(err)
 		c.String(http.StatusInternalServerError, "服务器问题")
 		return
 	}
@@ -141,8 +205,17 @@ func (handler *UserHandler) LoginJWT(c *gin.Context) {
 		return
 	}
 	//设置JWT
+	err = handler.SetJWT(c, u.Id)
+	if err != nil {
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
+	c.String(200, "登录成功")
+}
+
+func (handler *UserHandler) SetJWT(c *gin.Context, uid int64) error {
 	userClaims := UserClaims{
-		Uid: u.Id,
+		Uid:       uid,
 		UserAgent: c.Request.UserAgent(),
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 2)),
@@ -152,10 +225,10 @@ func (handler *UserHandler) LoginJWT(c *gin.Context) {
 	tokenStr, err := token.SignedString([]byte(ScretKey))
 	if err != nil {
 		c.String(http.StatusInternalServerError, "服务器问题")
-		return
+		return err
 	}
 	c.Header("x-jwt-token", tokenStr)
-	c.String(200, "登录成功")
+	return nil
 }
 
 func (handler *UserHandler) Login(c *gin.Context) {
