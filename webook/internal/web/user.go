@@ -22,8 +22,8 @@ var (
 type UserHandler struct {
 	emailExp *regexp.Regexp
 	passExp  *regexp.Regexp
-	svc      *service.UserService
-	codeSvc  *service.CodeService
+	svc      service.UserService
+	codeSvc  service.CodeService
 }
 
 type UserClaims struct {
@@ -33,7 +33,7 @@ type UserClaims struct {
 	jwt.RegisteredClaims
 }
 
-func NewUserHandler(svc *service.UserService, codeSvc *service.CodeService) *UserHandler {
+func NewUserHandler(svc service.UserService, codeSvc service.CodeService) *UserHandler {
 	const (
 		EmailRegexp = "^\\w+(-+.\\w+)*@\\w+(-.\\w+)*.\\w+(-.\\w+)*$"
 		//8位以上的必须同时包含字母大小写，数字和特殊符号
@@ -283,11 +283,13 @@ func (handler *UserHandler) Edit(c *gin.Context) {
 	}
 	userClaim, ok := c.Get("claims")
 	if !ok {
+		fmt.Println("claims not found")
 		c.String(http.StatusInternalServerError, "internal server error")
 		return
 	}
 	claims, ok := userClaim.(*UserClaims)
 	if !ok {
+		fmt.Println("转换失败")
 		c.String(http.StatusInternalServerError, "internal server error")
 		return
 	}

@@ -14,13 +14,13 @@ import (
 
 func InitGin(mdls []gin.HandlerFunc, hdl *web.UserHandler) *gin.Engine {
 	server := gin.Default()
-	hdl.RegisterRoutes(server)
 	server.Use(mdls...)
+	hdl.RegisterRoutes(server)
 	return server
 }
 
 func InitMiddlewares(redisClient redis.Cmdable) []gin.HandlerFunc {
-	return []gin.HandlerFunc{
+	mds := []gin.HandlerFunc{
 		cors.New(cors.Config{
 			//这里用来配置允许的域名
 			// AllowOrigins:     []string{"https://foo.com"},
@@ -45,4 +45,5 @@ func InitMiddlewares(redisClient redis.Cmdable) []gin.HandlerFunc {
 			IgnorePaths("/users/code/send").IgnorePaths("/users/login_sms").
 			Build(),
 	}
+	return mds
 }

@@ -9,33 +9,37 @@ import (
 	"github.com/spigcoder/LittleBook/webook/internal/service/sms"
 )
 
- 
 var (
-	ErrCodeSendTooMany = repository.ErrCodeSendTooMany
-	ErrCodeVerifyTooManyTimes = repository.ErrCodeVerifyTooManyTimes
-	tmpId string = ""
+	ErrCodeSendTooMany               = repository.ErrCodeSendTooMany
+	ErrCodeVerifyTooManyTimes        = repository.ErrCodeVerifyTooManyTimes
+	tmpId                     string = ""
 )
 
-type CodeService struct {
-	repo *repository.CodeRepository
-	smsSvc  sms.Service
+type CodeService interface {
+	Send(ctx context.Context, biz string, phone string) error
+	Verify(ctx context.Context, biz string, phone string, inputCode string) (bool, error)
 }
 
-func NewCodeService(repo *repository.CodeRepository, smsSvc sms.Service) *CodeService {
-	return &CodeService{
-		repo: repo,
-		smsSvc:  smsSvc,
+type CodeServiceX struct {
+	dao    *repository.CacheCodeRepository
+	smsSvc sms.Service
+}
+
+func NewCodeService(dao *repository.CacheCodeRepository, smsSvc sms.Service) *CodeServiceX {
+	return &CodeServiceX{
+		dao:    dao,
+		smsSvc: smsSvc,
 	}
 }
 
-func (svc *CodeService) randomCode() string {
+func (svc *CodeServiceX) randomCode() string {
 	key := rand.IntN(1000000)
 	return fmt.Sprintf("%06d", key)
 }
 
-func (csv *CodeService) Send(ctx context.Context, biz string, phone string) error {
+func (csv *CodeServiceX) Send(ctx context.Context, biz string, phone string) error {
 	code := csv.randomCode()
-	err := csv.repo.Store(ctx, biz, phone, code)
+	err := csv.dao.Store(ctx, biz, phone, code)
 	if err != nil {
 		return err
 	}
@@ -45,6 +49,6 @@ func (csv *CodeService) Send(ctx context.Context, biz string, phone string) erro
 	return err
 }
 
-func (csv *CodeService) Verify(ctx context.Context, biz string, phone string, inputCode string) (bool, error) {
-	return csv.repo.Verify(ctx, biz, phone, inputCode)
+func (csv *CodeServiceX) Verify(ctx context.Context, biz string, phone string, inputCode string) (bool, error) {
+	return csv.dao.Verify(ctx, biz, phone, inputCode)
 }

@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -34,6 +35,7 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
+		fmt.Println("hh")
 		// seg := strings.Split(tokenHeader, " ")
 		// if len(seg) != 2 {
 		// 	c.AbortWithStatus(http.StatusUnauthorized)
@@ -55,7 +57,7 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			return
 		}
 		//刷新jwt
-		if userClaims.ExpiresAt.Sub(time.Now()) < time.Minute * 30 {
+		if userClaims.ExpiresAt.Sub(time.Now()) < time.Minute*30 {
 			userClaims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(time.Hour))
 			token = jwt.NewWithClaims(jwt.SigningMethodHS512, userClaims)
 			tokenStr, err = token.SignedString(web.ScretKey)
@@ -65,6 +67,7 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			}
 			c.Header("x-jwt-token", tokenStr)
 		}
+		fmt.Println("claims", userClaims)
 		c.Set("claims", userClaims)
 	}
 }

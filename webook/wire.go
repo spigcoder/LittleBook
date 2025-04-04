@@ -25,8 +25,8 @@ func InitWebServer() *gin.Engine {
 		service.NewUserService,
 		service.NewCodeService,
 		web.NewUserHandler,
-		ioc.InitGin,
 		ioc.InitMiddlewares,
+		ioc.InitGin,
 	)
 	return new(gin.Engine)
 }

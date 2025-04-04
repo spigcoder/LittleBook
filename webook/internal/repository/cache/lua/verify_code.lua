@@ -2,7 +2,8 @@ local key = KEYS[1]
 local cntKey = key..":cnt"
 local expectCode = ARGV[1]
 local code = redis.call("get", key)
-local cnt = tonumber(redis.call("get", cntKey))
+local cntValue = redis.call("get", cntKey)
+local cnt = tonumber(cntValue) or -1 
 
 --为什么不用验证验证码以过期，因为过期了，那么就返回验证码错误就好了
 if cnt <= 0 then

@@ -21,12 +21,17 @@ var luaSetCode string
 //go:embed lua/verify_code.lua
 var luaVerifyCode string
 
-type CodeCache struct {
+type CodeCache interface {
+	Set(ctx context.Context, biz string, phone string, code string) error
+	Verify(ctx context.Context, biz string, phone string, inputCode string) (bool, error)
+}
+
+type RedisCodeCache struct {
 	client redis.Cmdable
 }
 
-func NewCodeCache(client redis.Cmdable) *CodeCache {
-	return &CodeCache{
+func NewCodeCache(client redis.Cmdable) *RedisCodeCache {
+	return &RedisCodeCache{
 		client: client,
 	}
 }
@@ -34,7 +39,7 @@ func NewCodeCache(client redis.Cmdable) *CodeCache {
 // 我觉得这里有问题，code发送太频繁不应该是在redis中进行判断的，应该在前端就不允许它进行发送
 // 不过好像也可以，如果前端允许发送，那么我们就先生成验证码然后进行存储，如果存储失败，就不调用发送短信的接口
 // 然后呢返回给前端一个发送太快的消息
-func (c *CodeCache) Set(ctx context.Context, biz string, phone string, code string) error {
+func (c *RedisCodeCache) Set(ctx context.Context, biz string, phone string, code string) error {
 	res, err := c.client.Eval(ctx, luaSetCode, []string{c.key(biz, phone)}, code).Int()
 	if err != nil {
 		return err
@@ -49,7 +54,7 @@ func (c *CodeCache) Set(ctx context.Context, biz string, phone string, code stri
 	}
 }
 
-func (c *CodeCache) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
+func (c *RedisCodeCache) Verify(ctx context.Context, biz, phone, inputCode string) (bool, error) {
 	res, err := c.client.Eval(ctx, luaVerifyCode, []string{c.key(biz, phone)}, inputCode).Int()
 	if err != nil {
 		return false, err
@@ -65,6 +70,6 @@ func (c *CodeCache) Verify(ctx context.Context, biz, phone, inputCode string) (b
 	return false, ErrUnKnownForCode
 }
 
-func (c *CodeCache) key(biz string, phone string) string {
+func (c *RedisCodeCache) key(biz string, phone string) string {
 	return fmt.Sprintf("phone_code:%s:%s", biz, phone)
 }
