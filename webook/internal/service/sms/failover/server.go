@@ -7,6 +7,8 @@ import (
 	"github.com/spigcoder/LittleBook/webook/internal/service/sms"
 )
 
+// 这知识一种实现，它是基于超市次数我们来选择不同的代理商，那么实际情况呢
+// 我们可能通过cpu利用率，或者内存占用情况，又或者网络情况来判断当前代理商是否可以使用，从而使用我们的容错机制
 type TimeoutFailoverSMSService struct {
 	svcs []sms.Service
 	//当前server出错了多少次
