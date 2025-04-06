@@ -10,6 +10,7 @@ import (
 	"github.com/spigcoder/LittleBook/webook/internal/web"
 	"github.com/spigcoder/LittleBook/webook/internal/web/middleware"
 	"github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/ratelimit"
+	"github.com/spigcoder/LittleBook/webook/pkg/ratelimiter"
 )
 
 func InitGin(mdls []gin.HandlerFunc, hdl *web.UserHandler) *gin.Engine {
@@ -39,7 +40,7 @@ func InitMiddlewares(redisClient redis.Cmdable) []gin.HandlerFunc {
 			},
 			MaxAge: 12 * time.Hour,
 		}),
-		ratelimit.NewBuilder(redisClient, time.Second, 100).Build(),
+		ratelimit.NewBuilder(ratelimiter.NewRedisSlideWindowLimiter(redisClient, time.Second, 100)).Build(),
 		middleware.NewLoginJWTMiddlewareBuilder().
 			IgnorePaths("/users/signup").IgnorePaths("/users/login").
 			IgnorePaths("/users/code/send").IgnorePaths("/users/login_sms").
