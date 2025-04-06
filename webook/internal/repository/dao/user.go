@@ -72,7 +72,8 @@ func (dao *GormUserDao) Insert(ctx context.Context, u User) error {
 	err := dao.db.WithContext(ctx).Create(&u).Error
 	//跟底层强耦合，因为这里假设底层使用了MySQLj
 	if mysqlErr, ok := err.(*mysql.MySQLError); ok {
-		if mysqlErr.Number == 1062 { // Duplicate entry
+		const uniqueConflictsErrno uint16 = 1062
+		if mysqlErr.Number == uniqueConflictsErrno { // Duplicate entry
 			return ErrDuplicateEmail
 		}
 	}
