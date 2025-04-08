@@ -2,11 +2,10 @@ package middleware
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	jwt "github.com/golang-jwt/jwt/v5"
-	"github.com/spigcoder/LittleBook/webook/internal/web"
+	"github.com/spigcoder/LittleBook/webook/internal/web/ijwt"
 )
 
 type LoginJWTMiddlewareBuilder struct {
@@ -22,6 +21,8 @@ func (l *LoginJWTMiddlewareBuilder) IgnorePaths(path string) *LoginJWTMiddleware
 	return l
 }
 
+//如果这里由退出登录这个功能的话，我们就需要在检查token之前，检查他是否在Reids的退出token种
+//如果在的话，那么证明已经退出登录了，就返回登录失败
 func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		for _, path := range l.path {
@@ -34,16 +35,10 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
-		// seg := strings.Split(tokenHeader, " ")
-		// if len(seg) != 2 {
-		// 	c.AbortWithStatus(http.StatusUnauthorized)
-		// 	return
-		// }
-		// tokenStr := seg[1]
 		tokenStr := tokenHeader
-		userClaims := &web.UserClaims{}
+		userClaims := &ijwt.UserClaims{}
 		token, err := jwt.ParseWithClaims(tokenStr, userClaims, func(token *jwt.Token) (interface{}, error) {
-			return web.ScretKey, nil
+			return ijwt.AScretKey, nil
 		})
 		if err != nil || token == nil || !token.Valid || userClaims.Uid == 0 {
 			c.AbortWithStatus(http.StatusUnauthorized)
@@ -55,16 +50,6 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			return
 		}
 		//刷新jwt
-		if userClaims.ExpiresAt.Sub(time.Now()) < time.Minute*30 {
-			userClaims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(time.Hour))
-			token = jwt.NewWithClaims(jwt.SigningMethodHS512, userClaims)
-			tokenStr, err = token.SignedString(web.ScretKey)
-			if err != nil {
-				c.AbortWithStatus(http.StatusUnauthorized)
-				return
-			}
-			c.Header("x-jwt-token", tokenStr)
-		}
 		c.Set("claims", userClaims)
 	}
 }

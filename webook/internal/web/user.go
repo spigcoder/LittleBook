@@ -3,20 +3,19 @@ package web
 import (
 	"fmt"
 	"net/http"
-	"time"
 	"unicode/utf8"
 
 	regexp "github.com/dlclark/regexp2"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	jwt "github.com/golang-jwt/jwt/v5"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/spigcoder/LittleBook/webook/internal/domain"
 	"github.com/spigcoder/LittleBook/webook/internal/service"
+	"github.com/spigcoder/LittleBook/webook/internal/web/ijwt"
 )
 
 var (
-	ScretKey = []byte("ZD3oYULPnlBo2wqebduhFQjmrZdaFGaLzayCa8t8HWwxWKbRcGzaNLKkZ31ldeaM")
-	biz      = "login"
+	biz = "login"
 )
 
 type UserHandler struct {
@@ -24,13 +23,6 @@ type UserHandler struct {
 	passExp  *regexp.Regexp
 	svc      service.UserService
 	codeSvc  service.CodeService
-}
-
-type UserClaims struct {
-	Uid int64 `json:"uid"`
-	// UserAgent 是客户端的信息，用于校验
-	UserAgent string
-	jwt.RegisteredClaims
 }
 
 func NewUserHandler(svc service.UserService, codeSvc service.CodeService) *UserHandler {
@@ -59,6 +51,27 @@ func (handler *UserHandler) RegisterRoutes(server *gin.Engine) {
 	s.POST("/code/send", handler.SendCode)
 	s.POST("/login_sms", handler.LoginSMS)
 	s.POST("/edit", handler.Edit)
+	s.POST("/refresh_jwt", handler.RefreshJWT)
+}
+
+func (handler *UserHandler) RefreshJWT(c *gin.Context) {
+	//获取refreshToken
+	refreshToken := c.GetHeader("refresh-token")	
+	var refreshClaims ijwt.RefreshClaims
+	token, err := jwt.ParseWithClaims(refreshToken, &refreshClaims, func(token *jwt.Token) (interface{}, error) {
+		return ijwt.RScretKey, nil		
+	})
+	if err != nil || token == nil ||!token.Valid {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+	//这里证明这个长token有效，我们要设置短token
+	//设置JWT, 这里同时更新长token和短token
+	err = ijwt.SetJWT(c, refreshClaims.Uid)
+	if err!= nil {
+		c.String(http.StatusInternalServerError, "服务器问题")
+		return
+	}
 }
 
 func (handler *UserHandler) LoginSMS(c *gin.Context) {
@@ -94,7 +107,7 @@ func (handler *UserHandler) LoginSMS(c *gin.Context) {
 		return
 	}
 	//设置JWT
-	err = handler.SetJWT(c, u.Id)
+	err = ijwt.SetJWT(c, u.Id)
 	if err != nil {
 		fmt.Println(err)
 		c.String(http.StatusInternalServerError, "服务器问题")
@@ -183,7 +196,6 @@ func (handler *UserHandler) LoginJWT(c *gin.Context) {
 	type LoginReq struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
-		Id       int64  `json:"id"`
 	}
 
 	var req LoginReq
@@ -203,30 +215,12 @@ func (handler *UserHandler) LoginJWT(c *gin.Context) {
 		return
 	}
 	//设置JWT
-	err = handler.SetJWT(c, u.Id)
+	err = ijwt.SetJWT(c, u.Id)
 	if err != nil {
 		c.String(http.StatusInternalServerError, "服务器问题")
 		return
 	}
 	c.String(200, "登录成功")
-}
-
-func (handler *UserHandler) SetJWT(c *gin.Context, uid int64) error {
-	userClaims := UserClaims{
-		Uid:       uid,
-		UserAgent: c.Request.UserAgent(),
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 2)),
-		},
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS512, userClaims)
-	tokenStr, err := token.SignedString([]byte(ScretKey))
-	if err != nil {
-		c.String(http.StatusInternalServerError, "服务器问题")
-		return err
-	}
-	c.Header("x-jwt-token", tokenStr)
-	return nil
 }
 
 func (handler *UserHandler) Login(c *gin.Context) {
@@ -287,7 +281,7 @@ func (handler *UserHandler) Edit(c *gin.Context) {
 		c.String(http.StatusInternalServerError, "internal server error")
 		return
 	}
-	claims, ok := userClaim.(*UserClaims)
+	claims, ok := userClaim.(*ijwt.UserClaims)
 	if !ok {
 		fmt.Println("转换失败")
 		c.String(http.StatusInternalServerError, "internal server error")
