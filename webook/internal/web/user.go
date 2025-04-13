@@ -2,6 +2,7 @@ package web
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"unicode/utf8"
 
@@ -56,19 +57,19 @@ func (handler *UserHandler) RegisterRoutes(server *gin.Engine) {
 
 func (handler *UserHandler) RefreshJWT(c *gin.Context) {
 	//获取refreshToken
-	refreshToken := c.GetHeader("refresh-token")	
+	refreshToken := c.GetHeader("refresh-token")
 	var refreshClaims ijwt.RefreshClaims
 	token, err := jwt.ParseWithClaims(refreshToken, &refreshClaims, func(token *jwt.Token) (interface{}, error) {
-		return ijwt.RScretKey, nil		
+		return ijwt.RScretKey, nil
 	})
-	if err != nil || token == nil ||!token.Valid {
+	if err != nil || token == nil || !token.Valid {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 	//这里证明这个长token有效，我们要设置短token
 	//设置JWT, 这里同时更新长token和短token
 	err = ijwt.SetJWT(c, refreshClaims.Uid)
-	if err!= nil {
+	if err != nil {
 		c.String(http.StatusInternalServerError, "服务器问题")
 		return
 	}
@@ -153,6 +154,7 @@ func (handler *UserHandler) Signup(c *gin.Context) {
 		return
 	}
 	if suq.Password != suq.ConfirmPassword {
+		logrus.Info("两次密码不一致")
 		c.String(http.StatusBadRequest, "两次密码不一致")
 		return
 	}

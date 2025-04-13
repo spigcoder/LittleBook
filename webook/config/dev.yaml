@@ -4,3 +4,6 @@ db:
 cache:
   redis:
     addr: "localhost:6379"
+log:
+  dir: "logs"
+  app: "webook"
