@@ -1,0 +1,96 @@
+[2025-04-14 19:21:15] [36m[info][0m builder.go:96 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 Accessy: {POST /users/signup 400 {
+    "email": "k5mit6_inz@163.com",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+} 邮箱冲突 79.59375ms}
+[2025-04-14 19:21:22] [36m[info][0m builder.go:96 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 Accessy: {POST /users/signup 200 {
+    "email": "k5mit6_ifdsafnz@163.com",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+} 注册成功 61.560833ms}
+[2025-04-14 19:25:11] [36m[info][0m builder.go:98 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 access log
+[2025-04-14 19:29:27] [36m[info][0m builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 access log
+[2025-04-14 19:32:49] [36m[info][0m builder.go:109 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 access log
+[2025-04-14 19:38:35] [36m[info][0m builder.go:109 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 access log
+ Response: ={400 邮箱冲突} Duration: =66.949333ms Request: ={POST /users/signup {
+    "email": "k5mit6_ifdsafnz@163.ceom",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+}} 
+[2025-04-14 19:40:50] [36m[info][0m builder.go:109 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1 access log
+  [36mResponse: [0m={400 邮箱冲突}
+  [36mDuration: [0m=73.518083ms
+  [36mRequest: [0m={POST /users/signup {
+    "email": "k5mit6_ifdsafnz@163.ceom",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+}}
+
+[2025-04-14 19:41:30] [36m[info][0m builder.go:109 access log %!s(MISSING)
+  [36mResponse: [0m={400 邮箱冲突}
+  [36mDuration: [0m=78.843958ms
+  [36mRequest: [0m={POST /users/signup {
+    "email": "k5mit6_ifdsafnz@163.ceom",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+}}
+
+[2025-04-14 19:41:58] [36m[info][0m builder.go:109 access log
+  [36mRequest: [0m={POST /users/signup {
+    "email": "k5mit6_ifdsafnz@163.ceom",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+}}
+  [36mResponse: [0m={400 邮箱冲突}
+  [36mDuration: [0m=72.949875ms
+
+[2025-04-14 20:17:14] [36m[info][0m builder.go:109 access log
+  [36mRequest: [0m={POST /users/signup {
+    "email": "k5mit6_ifdsafnz@163.ceom",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+}}
+  [36mDuration: [0m=72.983917ms
+  [36mResponse: [0m={400 邮箱冲突}
+
+[2025-04-14 20:20:52] [36m[info][0m builder.go:109 access log
+  [36mResponse: [0m={200 注册成功}
+  [36mRequest: [0m={POST /users/signup {
+    "email": "k5mit6_ifdsafnzds@163.ceom",
+    "password": "76dRNTiFm7v60Hr,",
+    "confirmpassword": "76dRNTiFm7v60Hr,"
+}}
+  [36mDuration: [0m=65.068375ms
+
+[2025-04-14 20:22:22] [36m[info][0m builder.go:109 access log
+  [36mRequest: [0m={POST /users/login {
+    "email": "k5mit6_ifdsafnzds@163.ceom",
+    "password": "76dRNTiFm7v60Hr,"
+}}
+  [36mResponse: [0m={200 登录成功}
+  [36mDuration: [0m=60.32475ms
+
+[2025-04-14 20:23:46] [36m[info][0m builder.go:109 access log
+  [36mRequest: [0m={POST /users/login {
+    "email": "k5mit6_ifdsafnzds@163.ceom",
+    "password": "76dRNTiFm7v60Hr,"
+}}
+  [36mResponse: [0m={200 登录成功}
+  [36mDuration: [0m=62.94325ms
+
+[2025-04-14 20:24:28] [36m[info][0m builder.go:107 access log
+  [36mRequest: [0m={POST /users/login {
+    "email": "k5mit6_ifdsafnzds@163.ceom",
+    "password": "76dRNTiFm7v60Hr,"
+}}
+  [36mResponse: [0m={200 登录成功}
+  [36mDuration: [0m=74.3995ms
+
+[2025-04-14 20:24:58] [36m[info][0m builder.go:107 access log
+  [36mDuration: [0m=64.426875ms
+  [36mResponse: [0m={200 登录成功}
+  [36mRequest: [0m={POST /users/login {
+    "email": "k5mit6_ifdsafnzds@163.ceom",
+    "password": "76dRNTiFm7v60Hr,"
+}}
+

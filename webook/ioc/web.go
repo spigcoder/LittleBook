@@ -1,6 +1,7 @@
 package ioc
 
 import (
+	"github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/logs"
 	"strings"
 	"time"
 
@@ -40,6 +41,9 @@ func InitMiddlewares(redisClient redis.Cmdable) []gin.HandlerFunc {
 			},
 			MaxAge: 12 * time.Hour,
 		}),
+		logs.NewMiddlewareBuilder().
+			EnableRequest().
+			EnableResponse().Build(),
 		ratelimit.NewBuilder(ratelimiter.NewRedisSlideWindowLimiter(redisClient, time.Second, 100)).Build(),
 		middleware.NewLoginJWTMiddlewareBuilder().
 			IgnorePaths("/users/signup").IgnorePaths("/users/login").

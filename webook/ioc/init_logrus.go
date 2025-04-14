@@ -45,13 +45,19 @@ func (t *LogFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	timestamp := entry.Time.Format("2006-01-02 15:04:05")
 	if entry.HasCaller() {
 		//自定义文件路径
-		funcVal := entry.Caller.Function
 		fileVal := fmt.Sprintf("%s:%d", path.Base(entry.Caller.File), entry.Caller.Line)
 		//自定义输出格式
-		fmt.Fprintf(b, "[%s] \x1b[%dm[%s]\x1b[0m %s %s %s\n", timestamp, levelColor, entry.Level, fileVal, funcVal, entry.Message)
+		fmt.Fprintf(b, "[%s] \x1b[%dm[%s]\x1b[0m %s %s\n", timestamp, levelColor, entry.Level, fileVal, entry.Message)
 	} else {
 		fmt.Fprintf(b, "[%s] \x1b[%dm[%s]\x1b[0m %s\n", timestamp, levelColor, entry.Level, entry.Message)
 	}
+	// 输出字段（关键修复）
+	if len(entry.Data) > 0 {
+		for key, value := range entry.Data {
+			fmt.Fprintf(b, "  \x1b[%dm%s\x1b[0m=%v\n", levelColor, key, value) // 使用 2 空格缩进 + 换行
+		}
+	}
+	b.WriteString("\n") // 换行
 	return b.Bytes(), nil
 }
 

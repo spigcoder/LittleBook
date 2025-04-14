@@ -10,10 +10,6 @@ func main() {
 	server.Run(":8080")
 }
 
-func initLog() {
-
-}
-
 func initViper() {
 	viper.SetConfigName("dev")
 	viper.SetConfigType("yaml")
