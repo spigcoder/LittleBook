@@ -21,11 +21,11 @@ type CodeService interface {
 }
 
 type CodeServiceX struct {
-	dao    *repository.CacheCodeRepository
+	dao    repository.CodeRepository
 	smsSvc sms.Service
 }
 
-func NewCodeService(dao *repository.CacheCodeRepository, smsSvc sms.Service) *CodeServiceX {
+func NewCodeService(dao repository.CodeRepository, smsSvc sms.Service) CodeService {
 	return &CodeServiceX{
 		dao:    dao,
 		smsSvc: smsSvc,

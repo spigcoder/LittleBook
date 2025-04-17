@@ -1,0 +1,8 @@
+[2025-04-15 14:21:27] [36m[info][0m builder.go:107 access log
+  [36mDuration: [0m=68.844083ms
+  [36mRequest: [0m={POST /users/login {
+    "email": "k5mit6_ifdsafnzds@163.ceom",
+    "password": "76dRNTiFm7v60Hr,"
+}}
+  [36mResponse: [0m={200 登录成功}
+

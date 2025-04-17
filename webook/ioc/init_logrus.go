@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 	"os"
-	"path"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -44,10 +43,8 @@ func (t *LogFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	//自定义日期格式
 	timestamp := entry.Time.Format("2006-01-02 15:04:05")
 	if entry.HasCaller() {
-		//自定义文件路径
-		fileVal := fmt.Sprintf("%s:%d", path.Base(entry.Caller.File), entry.Caller.Line)
 		//自定义输出格式
-		fmt.Fprintf(b, "[%s] \x1b[%dm[%s]\x1b[0m %s %s\n", timestamp, levelColor, entry.Level, fileVal, entry.Message)
+		fmt.Fprintf(b, "[%s] \x1b[%dm[%s]\x1b[0m %s\n", timestamp, levelColor, entry.Level, entry.Message)
 	} else {
 		fmt.Fprintf(b, "[%s] \x1b[%dm[%s]\x1b[0m %s\n", timestamp, levelColor, entry.Level, entry.Message)
 	}
@@ -109,7 +106,7 @@ func InitFile(logPath, appName string) {
 	logrus.AddHook(&fileHook)
 }
 
-func InitLogrus() {
+func InitLogrus() logrus.Logger {
 	logrus.SetOutput(os.Stdout)          //设置输出类型
 	logrus.SetReportCaller(true)         //开启返回函数名和行号
 	logrus.SetFormatter(&LogFormatter{}) //设置自己定义的Formatter
@@ -121,4 +118,5 @@ func InitLogrus() {
 	l := log{}
 	viper.UnmarshalKey("log", &l)
 	InitFile(l.DIR, l.APP)
+	return *logrus.StandardLogger()
 }

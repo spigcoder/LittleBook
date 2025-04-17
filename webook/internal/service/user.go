@@ -18,14 +18,14 @@ type UserService interface {
 	SignUp(ctx context.Context, user domain.User) error
 	Login(ctx context.Context, user domain.User) (domain.User, error)
 	FindOrCreate(ctx context.Context, phone string) (domain.User, error)
-	Edit(ctx context.Context, user domain.User) error	
+	Edit(ctx context.Context, user domain.User) error
 }
 
 type UserServiceX struct {
 	repo repository.UserRepository
 }
 
-func NewUserService(repo repository.UserRepository) *UserServiceX {
+func NewUserService(repo repository.UserRepository) UserService {
 	return &UserServiceX{repo: repo}
 }
 

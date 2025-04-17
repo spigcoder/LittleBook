@@ -17,7 +17,7 @@ var (
 type UserRepository interface {
 	FindByPhone(c context.Context, phone string) (domain.User, error)
 	FindByEmail(c context.Context, email string) (domain.User, error)
-	Create(c context.Context, u domain.User) error	
+	Create(c context.Context, u domain.User) error
 	Edit(c context.Context, u domain.User) error
 	FindById(c context.Context, id int64) (user domain.User, err error)
 }
@@ -27,7 +27,7 @@ type CacheUserRepository struct {
 	cache cache.UserCache
 }
 
-func NewUserRepository(dao dao.UserDao, cache cache.UserCache) *CacheUserRepository {
+func NewUserRepository(dao dao.UserDao, cache cache.UserCache) UserRepository {
 	return &CacheUserRepository{
 		dao:   dao,
 		cache: cache,
@@ -97,7 +97,7 @@ func (repo *CacheUserRepository) FindById(c context.Context, id int64) (user dom
 	return user, nil
 }
 
-func  TranformDomainToDao(user domain.User) dao.User {
+func TranformDomainToDao(user domain.User) dao.User {
 	return dao.User{
 		Id: user.Id,
 		Email: sql.NullString{
@@ -115,7 +115,7 @@ func  TranformDomainToDao(user domain.User) dao.User {
 	}
 }
 
-func  TransformDaoToDomain(daoUser dao.User) domain.User {
+func TransformDaoToDomain(daoUser dao.User) domain.User {
 	return domain.User{
 		Id:       daoUser.Id,
 		Email:    daoUser.Email.String,

@@ -24,7 +24,7 @@ type RedisUserCache struct {
 
 // 面向接口编程，依赖注入，这里的cmd可以是本地的redis，也可以是集群的redis
 // 这里的cmd是一个接口，它的实现是redis.Client和redis.ClusterClient
-func NewUserCache(cmd redis.Cmdable) *RedisUserCache {
+func NewUserCache(cmd redis.Cmdable) UserCache {
 	return &RedisUserCache{
 		client:     cmd,
 		expireTime: time.Minute * 15,

@@ -1,21 +1,13 @@
 package main
 
 import (
-	"github.com/spf13/viper"
+	"github.com/spigcoder/LittleBook/webook/ioc"
+	"github.com/spigcoder/LittleBook/webook/startup"
 )
 
 func main() {
-	initViper()
-	server := InitWebServer()
+	ioc.InitViper()
+	ioc.InitLogrus()
+	server := startup.InitWebServer()
 	server.Run(":8080")
-}
-
-func initViper() {
-	viper.SetConfigName("dev")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath("./config")
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
-	}
 }

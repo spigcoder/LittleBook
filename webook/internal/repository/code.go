@@ -17,10 +17,10 @@ type CodeRepository interface {
 }
 
 type CacheCodeRepository struct {
-	codeCache *cache.RedisCodeCache
+	codeCache cache.CodeCache
 }
 
-func NewCodeRepository(codeCache *cache.RedisCodeCache) *CacheCodeRepository {
+func NewCodeRepository(codeCache cache.CodeCache) CodeRepository {
 	return &CacheCodeRepository{
 		codeCache: codeCache,
 	}

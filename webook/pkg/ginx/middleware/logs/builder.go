@@ -103,8 +103,8 @@ func (b *MiddllewareBuilder) Build() gin.HandlerFunc {
 		}
 		defer func() {
 			al.Cost = time.Since(now).String()
-			logrus.WithField("Request: ", al.RequestLog).WithField("Response: ", al.ResponseLog).
-				WithField("Duration: ", al.Cost).Info("access log")
+			logrus.WithField("\nRequest: ", al.RequestLog).WithField("\nResponse: ", al.ResponseLog).
+				WithField("\nDuration: ", al.Cost).Info("\naccess log")
 		}()
 		ctx.Next()
 	}

@@ -1,7 +1,8 @@
-package web
+package test
 
 import (
 	"bytes"
+	"github.com/spigcoder/LittleBook/webook/internal/web"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -100,7 +101,7 @@ func TestUserHandler_Signup(t *testing.T) {
 			server := gin.Default()
 			ctl := gomock.NewController(t)
 			defer ctl.Finish()
-			h := NewUserHandler(tc.mock(ctl), nil)
+			h := web.NewUserHandler(tc.mock(ctl), nil)
 			h.RegisterRoutes(server)
 			req, err := http.NewRequest(http.MethodPost, "/users/signup", bytes.NewBuffer([]byte(tc.reqBody)))
 			require.NoError(t, err)

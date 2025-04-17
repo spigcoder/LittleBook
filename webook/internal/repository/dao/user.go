@@ -18,7 +18,7 @@ var (
 type UserDao interface {
 	Insert(ctx context.Context, u User) error
 	FindByEmail(ctx context.Context, email string) (User, error)
-	FindById(ctx context.Context, id int64) (User, error)	
+	FindById(ctx context.Context, id int64) (User, error)
 	FindByPhone(ctx context.Context, phone string) (User, error)
 	Edit(ctx context.Context, u User) error
 }
@@ -40,7 +40,7 @@ type User struct {
 	UpdateTime int64
 }
 
-func NewUserDao(db *gorm.DB) *GormUserDao {
+func NewUserDao(db *gorm.DB) UserDao {
 	return &GormUserDao{
 		db: db,
 	}

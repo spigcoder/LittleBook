@@ -1,0 +1,236 @@
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.338ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.281ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.563ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'webook' AND table_name = 'users' AND table_type = 'BASE TABLE'[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.386ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.958ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.915ms] [34;1m[rows:-][0m SELECT * FROM `users` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.898ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'webook' AND table_name = 'users' ORDER BY ORDINAL_POSITION[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.362ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.889ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.340ms] [34;1m[rows:3][0m 
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	INDEX_NAME,
+	NON_UNIQUE 
+FROM
+	information_schema.STATISTICS 
+WHERE
+	TABLE_SCHEMA = 'webook' 
+	AND TABLE_NAME = 'users' 
+ORDER BY
+	INDEX_NAME,
+	SEQ_IN_INDEX[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.407ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.622ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.846ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'webook' AND table_name = 'users' AND constraint_name = 'uni_users_email'[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.249ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.649ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.183ms] [34;1m[rows:3][0m 
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	INDEX_NAME,
+	NON_UNIQUE 
+FROM
+	information_schema.STATISTICS 
+WHERE
+	TABLE_SCHEMA = 'webook' 
+	AND TABLE_NAME = 'users' 
+ORDER BY
+	INDEX_NAME,
+	SEQ_IN_INDEX[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.230ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.606ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.804ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'webook' AND table_name = 'users' AND constraint_name = 'uni_users_phone'[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.293ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.612ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.254ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'webook' AND table_name = 'articles' AND table_type = 'BASE TABLE'[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.302ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.587ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.550ms] [34;1m[rows:-][0m SELECT * FROM `articles` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.953ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'webook' AND table_name = 'articles' ORDER BY ORDINAL_POSITION[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.253ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.785ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:07:56+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.828ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'webook' AND table_name = 'articles' AND index_name = 'aid_ctime'[0m 
+[36mINFO[0m[2025-04-17T16:11:23+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[35m/Users/x/go/src/LittleBook/webook/ioc/init_db.go:43
+[0m[31m[error] [0mfailed to initialize database, got error dial tcp [::1]:13316: connect: connection refused[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.875ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[3.746ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[3.812ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'webook' AND table_name = 'users' AND table_type = 'BASE TABLE'[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.773ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.772ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[2.796ms] [34;1m[rows:-][0m SELECT * FROM `users` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.111ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'webook' AND table_name = 'users' ORDER BY ORDINAL_POSITION[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.216ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.502ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[1.468ms] [34;1m[rows:3][0m 
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	INDEX_NAME,
+	NON_UNIQUE 
+FROM
+	information_schema.STATISTICS 
+WHERE
+	TABLE_SCHEMA = 'webook' 
+	AND TABLE_NAME = 'users' 
+ORDER BY
+	INDEX_NAME,
+	SEQ_IN_INDEX[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.202ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.625ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.593ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'webook' AND table_name = 'users' AND constraint_name = 'uni_users_email'[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.193ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.410ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.485ms] [34;1m[rows:3][0m 
+SELECT
+	TABLE_NAME,
+	COLUMN_NAME,
+	INDEX_NAME,
+	NON_UNIQUE 
+FROM
+	information_schema.STATISTICS 
+WHERE
+	TABLE_SCHEMA = 'webook' 
+	AND TABLE_NAME = 'users' 
+ORDER BY
+	INDEX_NAME,
+	SEQ_IN_INDEX[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.295ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.372ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m
+[0m[33m[0.410ms] [34;1m[rows:-][0m SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE constraint_schema = 'webook' AND table_name = 'users' AND constraint_name = 'uni_users_phone'[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.117ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.296ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.384ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.tables WHERE table_schema = 'webook' AND table_name = 'articles' AND table_type = 'BASE TABLE'[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.154ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.278ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.572ms] [34;1m[rows:-][0m SELECT * FROM `articles` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.461ms] [34;1m[rows:-][0m SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale , datetime_precision FROM information_schema.columns WHERE table_schema = 'webook' AND table_name = 'articles' ORDER BY ORDINAL_POSITION[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.135ms] [34;1m[rows:-][0m SELECT DATABASE()[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.365ms] [34;1m[rows:1][0m SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'webook%' ORDER BY SCHEMA_NAME='webook' DESC,SCHEMA_NAME limit 1[0m 
+[36mINFO[0m[2025-04-17T16:12:01+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/init_db.go:8
+[0m[33m[0.434ms] [34;1m[rows:-][0m SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'webook' AND table_name = 'articles' AND index_name = 'aid_ctime'[0m 
+[36mINFO[0m[2025-04-17T16:12:41+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[31;1m/Users/x/go/src/LittleBook/webook/internal/repository/dao/user.go:63 [35;1mrecord not found
+[0m[33m[2.846ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE email = '' ORDER BY `users`.`id` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:12:41+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=9.12275ms [36mRequest: [0m="{POST /users/login {\r\n    \"birthday\": \"2025-04-29\",\r\n    \"userName\": \"小海哥\",\r\n    \"intro\": \"nulla laboris\"\r\n}}" [36mResponse: [0m="{400 用户名或密码错误}"
+[36mINFO[0m[2025-04-17T16:12:50+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[31;1m/Users/x/go/src/LittleBook/webook/internal/repository/dao/user.go:63 [35;1mrecord not found
+[0m[33m[2.205ms] [34;1m[rows:0][0m SELECT * FROM `users` WHERE email = 'lj1ljflid@139.com' ORDER BY `users`.`id` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:12:50+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=3.39625ms [36mRequest: [0m="{POST /users/login {\r\n    \"email\": \"lj1ljflid@139.com\",\r\n    \"password\": \"NNRZGAZQjE8VhnR.\"\r\n}}" [36mResponse: [0m="{400 用户名或密码错误}"
+[36mINFO[0m[2025-04-17T16:13:10+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/user.go:63
+[0m[33m[1.089ms] [34;1m[rows:1][0m SELECT * FROM `users` WHERE email = 'k5mit6_inz@163.com' ORDER BY `users`.`id` LIMIT 1[0m 
+[36mINFO[0m[2025-04-17T16:13:10+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=59.84225ms [36mRequest: [0m="{POST /users/login {\r\n    \"email\": \"k5mit6_inz@163.com\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36mResponse: [0m="{200 登录成功}"
+[36mINFO[0m[2025-04-17T16:15:03+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:28 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[32m/Users/x/go/src/LittleBook/webook/internal/repository/dao/article.go:36
+[0m[33m[6.216ms] [34;1m[rows:1][0m INSERT INTO `articles` (`title`,`content`,`author_id`,`c_time`,`u_time`) VALUES ('抓比那账户极其以免穿过毅然','nostrud veniam',0,1744877703986,1744877703986)[0m 
+[36mINFO[0m[2025-04-17T16:15:03+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=8.429708ms [36mRequest: [0m="{POST /articles/edit {\n    \"title\": \"抓比那账户极其以免穿过毅然\",\n    \"content\": \"nostrud veniam\"\n}}" [36mResponse: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":11}}"
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:00+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:03+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:21:03+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=54.362959ms [36mRequest: [0m="{POST /users/login {\r\n    \"email\": \"k5mit6_inz@163.com\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36mResponse: [0m="{200 登录成功}"
+[36mINFO[0m[2025-04-17T16:22:20+08:00]/Users/x/go/src/LittleBook/webook/internal/web/article.go:44 github.com/spigcoder/LittleBook/webook/internal/web.(*ArticleHandler).Edit() 2                                            
+[36mINFO[0m[2025-04-17T16:22:20+08:00]/Users/x/go/src/LittleBook/webook/ioc/init_db.go:23 github.com/spigcoder/LittleBook/webook/ioc.(*colorWriter).Printf() [36m[0m                                    
+[36mINFO[0m[2025-04-17T16:22:20+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=8.596958ms [36mRequest: [0m="{POST /articles/edit {\n    \"title\": \"抓比那账户极其以免穿过毅然\",\n    \"content\": \"nostrud veniam\"\n}}" [36mResponse: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":12}}"
+[36mINFO[0m[2025-04-17T16:27:01+08:00]/Users/x/go/src/LittleBook/webook/internal/web/article.go:44 github.com/spigcoder/LittleBook/webook/internal/web.(*ArticleHandler).Edit() 2                                            
+[36mINFO[0m[2025-04-17T16:27:01+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() access log                                    [36mDuration: [0m=6.424ms [36mRequest: [0m="{POST /articles/edit {\n    \"title\": \"抓比那账户极其以免穿过毅然\",\n    \"content\": \"nostrud veniam\"\n}}" [36mResponse: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":13}}"
+[36mINFO[0m[2025-04-17T16:30:52+08:00]/Users/x/go/src/LittleBook/webook/internal/web/article.go:44 github.com/spigcoder/LittleBook/webook/internal/web.(*ArticleHandler).Edit() 2                                            
+[36mINFO[0m[2025-04-17T16:30:52+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=10.612208ms [36m
+Request: [0m="{POST /articles/edit {\n    \"title\": \"抓比那账户极其以免穿过毅然\",\n    \"content\": \"nostrud veniam\"\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":14}}"
+[36mINFO[0m[2025-04-17T16:34:39+08:00]/Users/x/go/src/LittleBook/webook/internal/web/article.go:44 github.com/spigcoder/LittleBook/webook/internal/web.(*ArticleHandler).Edit() 2                                            
+[36mINFO[0m[2025-04-17T16:34:39+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=8.995708ms [36m
+Request: [0m="{POST /articles/edit {\n    \"title\": \"抓比那账户极其以免穿过毅然\",\n    \"content\": \"nostrud veniam\"\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":15}}"
+[36mINFO[0m[2025-04-17T16:40:10+08:00]/Users/x/go/src/LittleBook/webook/internal/web/article.go:44 github.com/spigcoder/LittleBook/webook/internal/web.(*ArticleHandler).Edit() 2                                            
+[36mINFO[0m[2025-04-17T16:40:10+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=9.892167ms [36m
+Request: [0m="{POST /articles/edit {\n    \"title\": \"抓比那账户极其以免穿过毅然\",\n    \"content\": \"nostrud veniam\"\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":16}}"
