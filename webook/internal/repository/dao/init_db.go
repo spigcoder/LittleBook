@@ -5,5 +5,5 @@ import (
 )
 
 func InitTables(db *gorm.DB) {
-	db.AutoMigrate(User{}, Article{})
+	db.AutoMigrate(User{}, Article{}, PublishArticle{})
 }

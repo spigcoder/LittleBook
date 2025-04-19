@@ -8,6 +8,7 @@ import (
 
 type ArticleService interface {
 	Edit(ctx context.Context, article domain.Article) (int64, error)
+	Publish(ctx context.Context, article domain.Article) (int64, error)
 }
 
 type articleService struct {
@@ -20,9 +21,13 @@ func NewArticleService(repo repository.ArticleRepository) ArticleService {
 	}
 }
 
-func (a articleService) Edit(ctx context.Context, article domain.Article) (int64, error) {
+func (a *articleService) Publish(ctx context.Context, article domain.Article) (int64, error) {
+	return a.repo.Publish(ctx, article)
+}
+
+func (a *articleService) Edit(ctx context.Context, article domain.Article) (int64, error) {
 	if article.Id > 0 {
-		err := a.repo.UpdateById(ctx, article)
+		err := a.repo.Update(ctx, article)
 		return article.Id, err
 	}
 	return a.repo.Create(ctx, article)

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"time"
 )
 
@@ -16,9 +17,15 @@ type Article struct {
 	UTime    int64
 }
 
+type PublishArticle struct {
+	Article
+}
+
 type ArticleDao interface {
 	Insert(ctx context.Context, article Article) (int64, error)
 	UpdateById(ctx context.Context, article Article) error
+	Sync(ctx context.Context, article Article) (int64, error)
+	Upsert(ctx context.Context, article PublishArticle) (int64, error)
 }
 
 type GormArticleDao struct {
@@ -29,6 +36,40 @@ func NewArticleDao(db *gorm.DB) ArticleDao {
 	return &GormArticleDao{
 		db: db,
 	}
+}
+
+func (d *GormArticleDao) Upsert(ctx context.Context, article PublishArticle) (int64, error) {
+	now := time.Now().UnixMilli()
+	article.CTime = now
+	article.UTime = now
+	//设置如果存在更新哪些字段
+	err := d.db.Clauses(clause.OnConflict{
+		DoUpdates: clause.Assignments(map[string]interface{}{
+			"title":   article.Title,
+			"content": article.Content,
+			"u_time":  time.Now().UnixMilli(),
+		})}).Create(&article).Error
+	return article.Id, err
+}
+
+func (d *GormArticleDao) Sync(ctx context.Context, article Article) (int64, error) {
+	id := article.Id
+	err := d.db.Transaction(func(tx *gorm.DB) error {
+		var err error
+		txDao := NewArticleDao(tx)
+		if article.Id == 0 {
+			id, err = txDao.Insert(ctx, article)
+		} else {
+			err = txDao.UpdateById(ctx, article)
+		}
+		if err != nil {
+			return err
+		}
+		//操作线上库
+		id, err = txDao.Upsert(ctx, PublishArticle{Article: article})
+		return err
+	})
+	return id, err
 }
 
 func (d *GormArticleDao) UpdateById(ctx context.Context, article Article) error {

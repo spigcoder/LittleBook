@@ -8,7 +8,8 @@ import (
 
 type ArticleRepository interface {
 	Create(ctx context.Context, article domain.Article) (int64, error)
-	UpdateById(ctx context.Context, article domain.Article) error
+	Update(ctx context.Context, article domain.Article) error
+	Publish(ctx context.Context, article domain.Article) (int64, error)
 }
 
 type CacheArticleRepository struct {
@@ -21,18 +22,22 @@ func NewArtilceRepository(dao dao.ArticleDao) ArticleRepository {
 	}
 }
 
-func (r *CacheArticleRepository) UpdateById(ctx context.Context, article domain.Article) error {
-	return r.dao.UpdateById(ctx, dao.Article{
-		Id:       article.Id,
+func convertDomainToDao(article domain.Article) dao.Article {
+	return dao.Article{
 		Title:    article.Title,
 		Content:  article.Content,
 		AuthorId: article.Author.Id,
-	})
+		Id:       article.Id,
+	}
+}
+
+func (r *CacheArticleRepository) Publish(ctx context.Context, article domain.Article) (int64, error) {
+	return r.dao.Sync(ctx, convertDomainToDao(article))
+}
+
+func (r *CacheArticleRepository) Update(ctx context.Context, article domain.Article) error {
+	return r.dao.UpdateById(ctx, convertDomainToDao(article))
 }
 func (r *CacheArticleRepository) Create(ctx context.Context, article domain.Article) (int64, error) {
-	return r.dao.Insert(ctx, dao.Article{
-		Title:    article.Title,
-		Content:  article.Content,
-		AuthorId: article.Author.Id,
-	})
+	return r.dao.Insert(ctx, convertDomainToDao(article))
 }
