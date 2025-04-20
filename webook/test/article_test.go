@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/spigcoder/LittleBook/webook/internal/domain"
 	"github.com/spigcoder/LittleBook/webook/internal/repository/dao"
 	"github.com/spigcoder/LittleBook/webook/internal/web/ijwt"
 	"github.com/spigcoder/LittleBook/webook/ioc"
@@ -88,6 +89,7 @@ func (s *ArticleTestSuite) TestEdit() {
 					Id:       1,
 					Title:    "标题",
 					Content:  "内容",
+					Status:   domain.ArtStatusUnPublished.ToUInt8(),
 					AuthorId: 123,
 				}, art)
 			},
@@ -113,6 +115,7 @@ func (s *ArticleTestSuite) TestEdit() {
 					AuthorId: 123,
 					CTime:    123,
 					UTime:    123,
+					Status:   domain.ArtStatusPublished.ToUInt8(),
 				}).Error
 				assert.NoError(t, err)
 			},
@@ -128,7 +131,7 @@ func (s *ArticleTestSuite) TestEdit() {
 					Title:    "新的标题",
 					Content:  "新的内容",
 					AuthorId: 123,
-					CTime:    123,
+					Status:   domain.ArtStatusUnPublished.ToUInt8(),
 				}, art)
 			},
 			article: Article{
@@ -154,6 +157,7 @@ func (s *ArticleTestSuite) TestEdit() {
 					AuthorId: 234,
 					CTime:    123,
 					UTime:    123,
+					Status:   domain.ArtStatusPublished.ToUInt8(),
 				}).Error
 				assert.NoError(t, err)
 			},
@@ -167,8 +171,8 @@ func (s *ArticleTestSuite) TestEdit() {
 					Title:    "标题",
 					Content:  "内容",
 					AuthorId: 234,
-					UTime:    123,
 					CTime:    123,
+					Status:   domain.ArtStatusPublished.ToUInt8(),
 				}, art)
 			},
 			article: Article{
@@ -186,8 +190,8 @@ func (s *ArticleTestSuite) TestEdit() {
 	for _, tc := range testCase {
 		t.Run(tc.name, func(t *testing.T) {
 			//制造数据
-			//tc.before(t)
-			//defer tc.after(t)
+			tc.before(t)
+			defer tc.after(t)
 			reqBody, err := json.Marshal(tc.article)
 			require.NoError(t, err)
 			req, err := http.NewRequest(http.MethodPost, "/articles/edit", bytes.NewReader(reqBody))

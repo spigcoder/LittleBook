@@ -10,6 +10,7 @@ type ArticleRepository interface {
 	Create(ctx context.Context, article domain.Article) (int64, error)
 	Update(ctx context.Context, article domain.Article) error
 	Publish(ctx context.Context, article domain.Article) (int64, error)
+	SyncStatus(ctx context.Context, article domain.Article) error
 }
 
 type CacheArticleRepository struct {
@@ -28,9 +29,13 @@ func convertDomainToDao(article domain.Article) dao.Article {
 		Content:  article.Content,
 		AuthorId: article.Author.Id,
 		Id:       article.Id,
+		Status:   article.Status.ToUInt8(),
 	}
 }
 
+func (r *CacheArticleRepository) SyncStatus(ctx context.Context, article domain.Article) error {
+	return dao.SyncStatus(ctx, convertDomainToDao(article))
+}
 func (r *CacheArticleRepository) Publish(ctx context.Context, article domain.Article) (int64, error) {
 	return r.dao.Sync(ctx, convertDomainToDao(article))
 }

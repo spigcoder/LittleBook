@@ -40,6 +40,36 @@ func (handler *ArticleHandler) RegisterRoutes(server *gin.Engine) {
 	g := server.Group("/articles")
 	g.POST("/edit", handler.Edit)
 	g.POST("/publish", handler.Publish)
+	g.POST("/withdraw", handler.WithDraw)
+}
+
+func (handler *ArticleHandler) WithDraw(c *gin.Context) {
+	type Req struct {
+		Id int64 `json:"id"`
+	}
+	var req Req
+	if err := c.Bind(&req); err != nil {
+		return
+	}
+	//用于验证身份，防止其他人更改我们文章的状态
+	userClaim, ok := c.Get("claims")
+	if !ok {
+		logrus.Error("claims not found")
+		c.String(http.StatusInternalServerError, "internal server error")
+		return
+	}
+	claims, ok := userClaim.(*ijwt.UserClaims)
+	err := handler.svc.WithDraw(c, req.toDomain(claims.Uid))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, Result{
+			Code: http.StatusInternalServerError,
+			Msg:  "系统错误",
+		})
+		logrus.Error("用户文章对外不可见设置失败", err)
+	}
+	c.JSON(http.StatusOK, Result{
+		Code: http.StatusOK,
+	})
 }
 
 func (handler *ArticleHandler) Publish(c *gin.Context) {
@@ -111,7 +141,7 @@ func (handler *ArticleHandler) Edit(c *gin.Context) {
 	}
 	claims, ok := userClaim.(*ijwt.UserClaims)
 	//进行内容校验，这里省略
-	id, err := handler.svc.Edit(c, req.toDomain(claims.Uid))
+	id, err := handler.svc.Save(c, req.toDomain(claims.Uid))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, Result{
 			Code: http.StatusInternalServerError,
