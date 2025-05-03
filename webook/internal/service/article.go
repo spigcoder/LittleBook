@@ -2,7 +2,10 @@ package service
 
 import (
 	"context"
+	"github.com/sirupsen/logrus"
 	"github.com/spigcoder/LittleBook/webook/internal/domain"
+	"github.com/spigcoder/LittleBook/webook/internal/events"
+	"github.com/spigcoder/LittleBook/webook/internal/events/article"
 	"github.com/spigcoder/LittleBook/webook/internal/repository"
 )
 
@@ -17,16 +20,32 @@ type ArticleService interface {
 
 type articleService struct {
 	repo repository.ArticleRepository
+	pro  article.Producer
 }
 
-func NewArticleService(repo repository.ArticleRepository) ArticleService {
+func NewArticleService(repo repository.ArticleRepository, pro article.Producer) ArticleService {
 	return &articleService{
 		repo: repo,
+		pro:  pro,
 	}
 }
 
 func (u *articleService) GetPubByArtId(ctx context.Context, id int64) (domain.Article, error) {
-	return u.repo.GetPubByArtId(ctx, id)
+	art, err := u.repo.GetPubByArtId(ctx, id)
+	if err == nil {
+		//	发送阅读时间，后端得到后可以异步的进行阅读数的增加
+		go func() {
+			err := u.pro.Send(ctx, events.ReadEvent{
+				//这里如果消费者要使用art，usr的数据，让他自己去数据库查询
+				Uid: art.Author.Id,
+				Aid: art.Id,
+			})
+			if err != nil {
+				logrus.Error("发送消息失败：", err)
+			}
+		}()
+	}
+	return art, err
 }
 
 func (u *articleService) GetByArtId(ctx context.Context, id int64) (domain.Article, error) {
