@@ -49,7 +49,6 @@ func (l *LoginJWTMiddlewareBuilder) Build() gin.HandlerFunc {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
-		//刷新jwt
 		c.Set("claims", userClaims)
 	}
 }

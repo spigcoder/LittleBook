@@ -13,6 +13,16 @@ type Article struct {
 	Content string
 	Author  Author
 	Status  ArtStatus
+	CTime   int64
+	UTime   int64
+}
+
+func (art Article) Abstract() string {
+	abs := []rune(art.Content)
+	if len(abs) > 100 {
+		return string(abs[:100])
+	}
+	return string(abs)
 }
 
 type Author struct {

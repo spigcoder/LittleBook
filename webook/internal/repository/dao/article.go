@@ -13,10 +13,10 @@ type Article struct {
 	Id       int64  `gorm:"primaryKey,autoIncrement"`
 	Title    string `gorm:"type:varchar(1024);not null"`
 	Content  string `gorm:"type:BLOB;not null"`
-	AuthorId int64  `gorm:"index:aid_ctime"`
+	AuthorId int64  `gorm:"index:aid_utime"`
 	Status   uint8
-	UTime    int64
-	CTime    int64 `gorm:"index:aid_ctime"`
+	UTime    int64 `gorm:"index:aid_utime"`
+	CTime    int64
 }
 
 type PublishArticle struct {
@@ -29,6 +29,8 @@ type ArticleDao interface {
 	Sync(ctx context.Context, article Article) (int64, error)
 	Upsert(ctx context.Context, article PublishArticle) (int64, error)
 	SyncStatus(ctx context.Context, article Article) error
+	List(ctx context.Context, id int64, offset int, limit int) ([]Article, error)
+	GetByArtId(ctx context.Context, id int64) (Article, error)
 }
 
 type GormArticleDao struct {
@@ -39,6 +41,26 @@ func NewArticleDao(db *gorm.DB) ArticleDao {
 	return &GormArticleDao{
 		db: db,
 	}
+}
+
+func (d *GormArticleDao) GetByArtId(ctx context.Context, id int64) (Article, error) {
+	var article Article
+	err := d.db.WithContext(ctx).Model(&Article{}).Where("id =?", id).First(&article).Error
+	if err != nil {
+		return Article{}, err
+	}
+	return article, nil
+}
+
+func (d *GormArticleDao) List(ctx context.Context, id int64, offset int, limit int) ([]Article, error) {
+	var articles []Article
+	err := d.db.WithContext(ctx).Model(&Article{}).Where("author_id = ?", id).
+		Order("u_time desc").
+		Offset(offset).Limit(limit).Find(&articles).Error
+	if err != nil {
+		return nil, err
+	}
+	return articles, nil
 }
 
 func (d *GormArticleDao) SyncStatus(ctx context.Context, article Article) error {

@@ -1,0 +1,10 @@
+[36mINFO[0m[2025-05-02T13:12:01+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/logs.(*MiddllewareBuilder).Build.func1.1() 
+access log                                   [36m
+Duration: [0m=54.760784959s [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:16:38+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/pkg/ginx/middleware/logs.(*MiddllewareBuilder).Build.func1.1() 
+access log                                   [36m
+Duration: [0m=2m51.181383041s [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"

@@ -1,0 +1,180 @@
+[36mINFO[0m[2025-05-02T13:04:54+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=7.269ms [36m
+Request: [0m="{POST /users/login {\r\n    \"email\": \"lj1ljflid@139.com\",\r\n    \"password\": \"NNRZGAZQjE8VhnR.\"\r\n}}" [36m
+Response: [0m="{400 用户名或密码错误}"
+[36mINFO[0m[2025-05-02T13:05:50+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=79.506292ms [36m
+Request: [0m="{POST /users/login {\r\n \"email\": \"k5mit6_inz@163.com\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36m
+Response: [0m="{200 登录成功}"
+[36mINFO[0m[2025-05-02T13:06:38+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.039458ms [36m
+Request: [0m="{POST /articles/edit }" [36m
+Response: [0m="{401 }"
+[36mINFO[0m[2025-05-02T13:06:51+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.735375ms [36m
+Request: [0m="{POST /articles/edit }" [36m
+Response: [0m="{401 }"
+[36mINFO[0m[2025-05-02T13:08:09+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.387834ms [36m
+Request: [0m="{POST /articles/edit }" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:08:10+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.167833ms [36m
+Request: [0m="{POST /articles/edit }" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:08:38+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m="778.834µs" [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:08:39+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m="822.458µs" [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:10:17+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.785583ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:12:46+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=4.930792ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\",\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:12:48+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.728375ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\",\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:12:59+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.10875ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:13:34+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.225792ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": \"UkIR6C1qKoBIO243iXVJp\"\n}}" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T13:16:44+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=8.061292ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"反而关于逐渐多么黑不溜秋与此同时噢\",\n    \"id\": 0\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":1}}"
+[36mINFO[0m[2025-05-02T13:36:19+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.710583ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"你好我是大傻子\",\n    \"id\": 1\n}}" [36m
+Response: [0m="{401 }"
+[36mINFO[0m[2025-05-02T13:40:22+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=68.6225ms [36m
+Request: [0m="{POST /users/login {\r\n \"email\": \"k5mit6_inz@163.com\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36m
+Response: [0m="{200 登录成功}"
+[36mINFO[0m[2025-05-02T13:40:39+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=5.040958ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"你好我是大傻子\",\n    \"id\": 1\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":1}}"
+[36mINFO[0m[2025-05-02T15:08:02+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=12.960875ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"你好我是大傻子hhh\",\n    \"id\": 0\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":2}}"
+[36mINFO[0m[2025-05-02T15:08:08+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=4.519584ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"enim dolore ad\",\n    \"title\": \"你好我是大傻子hhhdfsafdsafsda\",\n    \"id\": 0\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":3}}"
+[36mINFO[0m[2025-05-02T15:09:44+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.650291ms [36m
+Request: [0m="{POST /articles/list }" [36m
+Response: [0m="{0 }"
+[36mINFO[0m[2025-05-02T15:10:01+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.69025ms [36m
+Request: [0m="{POST /articles/list }" [36m
+Response: [0m="{400 }"
+[36mINFO[0m[2025-05-02T15:10:15+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=3.235792ms [36m
+Request: [0m="{POST /articles/list {\n    \"offset\": 0,\n    \"limit\": 76\n}}" [36m
+Response: [0m="{0 }"
+[36mINFO[0m[2025-05-02T15:12:24+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=6.938834ms [36m
+Request: [0m="{POST /articles/list {\n    \"offset\": 0,\n    \"limit\": 76\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"OK\",\"data\":[{\"id\":3,\"title\":\"你好我是大傻子hhhdfsafdsafsda\",\"content\":\"\",\"abstract\":\"enim dolore ad\",\"author\":\"\",\"status\":2,\"ctime\":1746169688667,\"utime\":1746169688667},{\"id\":2,\"title\":\"你好我是大傻子hhh\",\"content\":\"\",\"abstract\":\"enim dolore ad\",\"author\":\"\",\"status\":2,\"ctime\":1746169682128,\"utime\":1746169682128},{\"id\":1,\"title\":\"你好我是大傻子\",\"content\":\"\",\"abstract\":\"enim dolore ad\",\"author\":\"\",\"status\":2,\"ctime\":1746163004215,\"utime\":1746164439604}]}}"
+[36mINFO[0m[2025-05-02T15:38:41+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=10.835583ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\n    \"title\": \"MySQL设计与实现\",\n    \"id\": 0\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":4}}"
+[36mINFO[0m[2025-05-02T15:40:12+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=7.161875ms [36m
+Request: [0m="{GET /articles/detail/4?id=4 }" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"OK\",\"data\":{\"Id\":4,\"Title\":\"MySQL设计与实现\",\"Content\":\"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\"Author\":{\"Id\":2,\"Name\":\"\"},\"Status\":2,\"CTime\":1746171521143,\"UTime\":1746171521143}}}"
+[36mINFO[0m[2025-05-02T15:43:45+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=4.685375ms [36m
+Request: [0m="{GET /articles/detail/4?id=4 }" [36m
+Response: [0m="{401 }"
+[36mINFO[0m[2025-05-02T15:43:48+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=1.262125ms [36m
+Request: [0m="{GET /articles/detail/4?id=4 }" [36m
+Response: [0m="{401 }"
+[36mINFO[0m[2025-05-02T15:43:57+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m="858.417µs" [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\n    \"title\": \"MySQL设计与实现\",\n    \"id\": 0\n}}" [36m
+Response: [0m="{401 }"
+[36mINFO[0m[2025-05-02T15:44:12+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=61.007209ms [36m
+Request: [0m="{POST /users/login {\r\n \"email\": \"k5mit6_inz@163.com\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36m
+Response: [0m="{200 登录成功}"
+[36mINFO[0m[2025-05-02T15:44:34+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=7.580042ms [36m
+Request: [0m="{POST /articles/edit {\n    \"content\": \"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\n    \"title\": \"MySQL设计与实现hhh\",\n    \"id\": 0\n}}" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"发布成功\",\"data\":5}}"
+[36mINFO[0m[2025-05-02T15:44:44+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.745125ms [36m
+Request: [0m="{GET /articles/detail/4?id=4 }" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"OK\",\"data\":{\"Id\":4,\"Title\":\"MySQL设计与实现\",\"Content\":\"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\"Author\":{\"Id\":2,\"Name\":\"\"},\"Status\":2,\"CTime\":1746171521143,\"UTime\":1746171521143}}}"
+[36mINFO[0m[2025-05-02T15:44:50+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.295208ms [36m
+Request: [0m="{GET /articles/detail/5?id=4 }" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"OK\",\"data\":{\"Id\":5,\"Title\":\"MySQL设计与实现hhh\",\"Content\":\"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\"Author\":{\"Id\":2,\"Name\":\"\"},\"Status\":2,\"CTime\":1746171874696,\"UTime\":1746171874696}}}"
+[36mINFO[0m[2025-05-02T15:45:12+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=84.39ms [36m
+Request: [0m="{POST /users/signup {\r\n    \"email\": \"k5mit6_inz@163.comwww\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\",\r\n    \"confirmpassword\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36m
+Response: [0m="{200 注册成功}"
+[36mINFO[0m[2025-05-02T15:45:25+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=62.181958ms [36m
+Request: [0m="{POST /users/login {\r\n    \"email\": \"k5mit6_inz@163.comwww\",\r\n    \"password\": \"76dRNTiFm7v60Hr,\"\r\n}}" [36m
+Response: [0m="{200 登录成功}"
+[36mINFO[0m[2025-05-02T15:45:42+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=2.935166ms [36m
+Request: [0m="{GET /articles/detail/5?id=4 }" [36m
+Response: [0m="{200 {\"code\":200,\"msg\":\"OK\",\"data\":{\"Id\":5,\"Title\":\"MySQL设计与实现hhh\",\"Content\":\"MySQL是典型的关系性数据库，这章我们就来讲一下如何实现它\",\"Author\":{\"Id\":2,\"Name\":\"\"},\"Status\":2,\"CTime\":1746171874696,\"UTime\":1746171874696}}}"
+[36mINFO[0m[2025-05-02T15:46:19+08:00]/Users/x/go/src/LittleBook/webook/pkg/ginx/middleware/logs/builder.go:107 github.com/spigcoder/LittleBook/webook/ioc.InitMiddlewares.(*MiddllewareBuilder).Build.func2.1() 
+access log                                   [36m
+Duration: [0m=5.362833ms [36m
+Request: [0m="{GET /articles/detail/5?id=4 }" [36m
+Response: [0m="{401 {\"code\":500,\"msg\":\"文章不存在\",\"data\":null}}"

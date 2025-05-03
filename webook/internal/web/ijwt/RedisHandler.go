@@ -52,7 +52,7 @@ func setAccessJwt(c *gin.Context, uid int64) error {
 		Uid:       uid,
 		UserAgent: c.Request.UserAgent(),
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 30)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * 2)),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, userClaims)
